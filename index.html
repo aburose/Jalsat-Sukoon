@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جلسات سكون الشاطئية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- شريط التنقل -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo" style="gap: 12px;">
+      <img src="logo.jpg" alt="شعار جلسات سكون" style="height: 45px; width: 45px; border-radius: 50%; object-fit: cover; background: #fff; padding: 3px;">
+      <span>جلسات سكون الشاطئية</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active"><i class="fas fa-book"></i> الحجز</a>
+      <a href="dashboard.html"><i class="fas fa-chart-line"></i> لوحة التحكم</a>
+    </div>
+  </div>
+</nav>
+
+<!-- الهيدر -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>🌙 جلسات سكون الشاطئية</h1>
+    <p>عِش لحظات لا تُنسى على أمواج البحر تحت ضوء القمر</p>
+    <div class="hero-stars">✦ ✧ ✦ ✧ ✦</div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="booking-layout">
+    <!-- قسم الحجز -->
+    <section class="booking-card glass">
+      <h2><i class="fas fa-calendar-check"></i> احجز جلستك</h2>
+
+      <!-- اختيار الجلسة -->
+      <div class="form-group">
+        <label>🎪 اختر رقم الجلسة</label>
+        <div class="session-selector">
+          
+          <!-- جلسة 101 -->
+          <div class="session-option" data-session="101">
+            <i class="fas fa-campground"></i>
+            <span>جلسة 101</span>
+            
+            <!-- معرض صور مصغر داخل جلسة 101 -->
+            <div class="session-mini-gallery">
+              <img src="101-5.jpg" alt="تصميم رومانسي" onclick="event.stopPropagation(); openLightbox('101-5.jpg')">
+              <img src="101-6.jpg" alt="جلسة بروجكتر" onclick="event.stopPropagation(); openLightbox('101-6.jpg')">
+              <img src="101-7.jpg" alt="تزيين بالبالونات" onclick="event.stopPropagation(); openLightbox('101-7.jpg')">
+            </div>
+          </div>
+          
+          <!-- جلسة 102 -->
+          <div class="session-option" data-session="102">
+            <i class="fas fa-umbrella-beach"></i>
+            <span>جلسة 102</span>
+            
+            <!-- معرض صور مصغر داخل جلسة 102 -->
+            <div class="session-mini-gallery">
+              <img src="102-1.jpg" alt="جلسة 102" onclick="event.stopPropagation(); openLightbox('102-1.jpg')">
+              <img src="102-2.jpg" alt="جلسة 102" onclick="event.stopPropagation(); openLightbox('102-2.jpg')">
+              <img src="102-3.jpg" alt="جلسة 102" onclick="event.stopPropagation(); openLightbox('102-3.jpg')">
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- اختيار الباقة -->
+      <div class="form-group">
+        <label>💎 اختر نوع الباقة</label>
+        <div class="package-selector">
+          <!-- الباقة الفضية -->
+          <div class="package-option silver" data-package="silver">
+            <div class="package-icon">🥈</div>
+            <h3>الباقة الفضية</h3>
+            <ul class="silver-features">
+              <li><i class="fas fa-shield-alt"></i> خصوصية تامة بتيزار مرتفع</li>
+              <li><i class="fas fa-check-circle"></i> جلسة متكاملة تتضمن:</li>
+              <li class="sub-feature"><i class="fas fa-gamepad"></i> جاكارو</li>
+              <li class="sub-feature"><i class="fas fa-tint"></i> ماء</li>
+              <li class="sub-feature"><i class="fas fa-headphones"></i> سماعات</li>
+              <li><i class="fas fa-users"></i> شخصان فقط</li>
+            </ul>
+
+            <div class="silver-prices">
+              <h4><i class="fas fa-tags"></i> الأسعار</h4>
+              <div class="price-row"><span>ساعة</span><strong>60 ر.س</strong></div>
+              <div class="price-row"><span>ساعتان</span><strong>120 ر.س</strong></div>
+              <div class="price-row"><span>3 ساعات</span><strong>180 ر.س</strong></div>
+              <div class="price-row"><span>4 ساعات</span><strong>240 ر.س</strong></div>
+              <div class="price-row discount">
+                <span>5 ساعات <em>بعد الخصم</em></span>
+                <strong>275 ر.س 🤩</strong>
+              </div>
+              <div class="price-row discount">
+                <span>6 ساعات</span>
+                <strong>330 ر.س 🤩</strong>
+              </div>
+            </div>
+
+            <!-- معرض صور الباقة الفضية -->
+            <div class="package-gallery" id="gallerySilver">
+              <div class="gallery-grid">
+                <div class="gallery-item main-img">
+                  <img src="101-1.jpg" alt="الباقة الفضية" onclick="openLightbox('101-1.jpg')">
+                </div>
+                <div class="gallery-item">
+                  <img src="101-2.jpg" alt="الباقة الفضية" onclick="openLightbox('101-2.jpg')">
+                </div>
+                <div class="gallery-item">
+                  <img src="101-3.jpg" alt="الباقة الفضية" onclick="openLightbox('101-3.jpg')">
+                </div>
+                <div class="gallery-item">
+                  <img src="101-4.jpg" alt="الباقة الفضية" onclick="openLightbox('101-4.jpg')">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- الباقة الذهبية -->
+          <div class="package-option gold" data-package="gold">
+            <div class="package-icon">🥇</div>
+            <h3>الباقة الذهبية</h3>
+            <ul class="gold-features">
+              <li><i class="fas fa-shield-alt"></i> خصوصية تامة بتيزار مرتفع</li>
+              <li><i class="fas fa-check-circle"></i> جلسة متكاملة تتضمن:</li>
+              <li class="sub-feature"><i class="fas fa-coffee"></i> ركن قهوة</li>
+              <li class="sub-feature"><i class="fas fa-video"></i> بروجكتر</li>
+              <li class="sub-feature"><i class="fas fa-camera-retro"></i> مرآة للتصوير</li>
+              <li class="sub-feature"><i class="fas fa-gamepad"></i> جاكارو</li>
+              <li class="sub-feature"><i class="fas fa-tint"></i> ماء</li>
+              <li class="sub-feature"><i class="fas fa-headphones"></i> سماعات</li>
+              <li><i class="fas fa-users"></i> حتى 10 أشخاص</li>
+            </ul>
+
+            <div class="gold-prices">
+              <h4><i class="fas fa-tags"></i> الأسعار</h4>
+              <div class="price-row"><span>ساعة</span><strong>80 ر.س</strong></div>
+              <div class="price-row"><span>ساعتان</span><strong>160 ر.س</strong></div>
+              <div class="price-row"><span>3 ساعات</span><strong>240 ر.س</strong></div>
+              <div class="price-row"><span>4 ساعات</span><strong>320 ر.س</strong></div>
+              <div class="price-row discount">
+                <span>5 ساعات <em>بعد الخصم</em></span>
+                <strong>350 ر.س 😍</strong>
+              </div>
+              <div class="price-row discount">
+                <span>6 ساعات</span>
+                <strong>400 ر.س 🤩</strong>
+              </div>
+            </div>
+
+            <!-- معرض صور الباقة الذهبية -->
+            <div class="package-gallery" id="galleryGold">
+              <div class="gallery-grid">
+                <div class="gallery-item main-img">
+                  <img src="gold-1.jpg" alt="الباقة الذهبية" onclick="openLightbox('gold-1.jpg')">
+                </div>
+                <div class="gallery-item">
+                  <img src="gold-2.jpg" alt="الباقة الذهبية" onclick="openLightbox('gold-2.jpg')">
+                </div>
+                <div class="gallery-item">
+                  <img src="gold-3.jpg" alt="الباقة الذهبية" onclick="openLightbox('gold-3.jpg')">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- التاريخ والوقت -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>📅 تاريخ الحجز</label>
+          <input type="date" id="bookingDate">
+          <small class="hint">لا يتجاوز أسبوعين من اليوم</small>
+        </div>
+        <div class="form-group">
+          <label>⏰ وقت البدء</label>
+          <select id="startTime">
+            <option value="">اختر الوقت</option>
+          </select>
+          <small class="hint">من 5 مساءً حتى 6 صباحاً</small>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>⏳ عدد الساعات</label>
+          <select id="hours">
+            <option value="">اختر عدد الساعات</option>
+            <option value="1">ساعة واحدة</option>
+            <option value="2">ساعتان</option>
+            <option value="3">3 ساعات</option>
+            <option value="4">4 ساعات</option>
+            <option value="5">5 ساعات (خصم 🤩)</option>
+            <option value="6">6 ساعات (خصم 🤩)</option>
+          </select>
+        </div>
+
+        <!-- عدّاد عدد الأشخاص -->
+        <div class="form-group" id="peopleGroup">
+          <label>
+            <i class="fas fa-user-friends"></i> عدد الأشخاص
+            <span class="people-badge" id="peopleBadge">2</span>
+          </label>
+
+          <div class="people-counter">
+            <button type="button" class="counter-btn" id="peopleMinus" onclick="changePeople(-1)">
+              <i class="fas fa-minus"></i>
+            </button>
+
+            <div class="counter-display">
+              <div class="people-icons" id="peopleIcons">
+                <i class="fas fa-user"></i>
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="counter-text">
+                <input type="number" id="people" value="2" min="1" max="10" readonly>
+                <span class="counter-label" id="peopleLabel">شخصان</span>
+              </div>
+            </div>
+
+            <button type="button" class="counter-btn" id="peoplePlus" onclick="changePeople(1)">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <small class="hint" id="peopleHint">
+            <i class="fas fa-info-circle"></i>
+            الباقة الفضية: شخصان فقط
+          </small>
+        </div>
+      </div>
+
+      <!-- باكيج الاحتفالات -->
+      <div class="form-group">
+        <div class="celebration-package" onclick="event.stopPropagation(); toggleCelebration(this)">
+          <div class="celebration-header">
+            <label class="celebration-checkbox">
+              <input type="checkbox" class="celebration-input" onchange="toggleCelebration(this.closest('.celebration-package'))">
+              <span class="checkmark"></span>
+              <span class="celebration-title">🎉 إضافة باكيج الاحتفالات <span class="celebration-price">+300 ر.س</span></span>
+            </label>
+          </div>
+          <div class="celebration-details">
+            <ul>
+              <li><i class="fas fa-cake-candles"></i> كيكة متوسطة الحجم من (منش)</li>
+              <li><i class="fas fa-spa"></i> بوكيه ورد (10 أغصان) مع كرت تهنئة 🪷</li>
+              <li><i class="fas fa-wine-glass"></i> عصير مناسب للاحتفال 🥂</li>
+              <li><i class="fas fa-fire"></i> شموع هادئة وشرارية لتزيين الاحتفال</li>
+              <li><i class="fas fa-utensils"></i> تنسيق كامل للطاولة (صحون ومستلزمات التقديم) 🍽️</li>
+              <li><i class="fas fa-star"></i> مدخل مزين بالشموع والورد (VIP) 🎂</li>
+            </ul>
+            <div class="celebration-warning">
+              <i class="fas fa-exclamation-triangle"></i> الباكج غير قابل للإضافات والتعديل نهائياً.
+            </div>
+            <div class="celebration-note">
+              <i class="fas fa-info-circle"></i> متاح للجلسة الاقتصادية أو VIP. <br>
+              <strong>سعر الباكيج غير شامل سعر الجلسة.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- بيانات العميل -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>👤 الاسم الكامل</label>
+          <input type="text" id="customerName" placeholder="أدخل اسمك">
+        </div>
+        <div class="form-group">
+          <label>📱 رقم الجوال</label>
+          <input type="tel" id="customerPhone" placeholder="05xxxxxxxx" maxlength="10">
+        </div>
+      </div>
+
+      <!-- ملخص الحجز -->
+      <div class="booking-summary" id="summary" style="display:none;">
+        <h3><i class="fas fa-receipt"></i> ملخص الحجز</h3>
+        <div class="summary-grid">
+          <div><span>الجلسة:</span> <strong id="sumSession">-</strong></div>
+          <div><span>الباقة:</span> <strong id="sumPackage">-</strong></div>
+          <div><span>التاريخ:</span> <strong id="sumDate">-</strong></div>
+          <div><span>الوقت:</span> <strong id="sumTime">-</strong></div>
+          <div><span>عدد الساعات:</span> <strong id="sumHours">-</strong></div>
+          <div><span>عدد الأشخاص:</span> <strong id="sumPeople">-</strong></div>
+          <div><span>باكيج الاحتفالات:</span> <strong id="sumCelebration">-</strong></div>
+          <div class="total"><span>الإجمالي:</span> <strong id="sumTotal">-</strong></div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="confirmBtn">
+        <i class="fas fa-check-circle"></i> تأكيد الحجز
+      </button>
+    </section>
+
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+      <div class="info-card glass">
+        <h3><i class="fas fa-clock"></i> أوقات متاحة</h3>
+        <p>الجلسات متاحة من <strong>5:00 مساءً</strong> حتى <strong>6:00 صباحاً</strong></p>
+      </div>
+
+      <div class="info-card glass">
+        <h3><i class="fas fa-calendar-times"></i> الجلسات المحجوزة اليوم</h3>
+        <div id="bookedSlots" class="booked-list">
+          <p class="empty-msg">لا توجد حجوزات بعد</p>
+        </div>
+      </div>
+
+      <div class="info-card glass romant">
+        <i class="fas fa-heart"></i>
+        <p>استمتع بلحظات رومانسية ساحرة تحت سماء مرصعة بالنجوم</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- أوقات العمل -->
+  <section class="working-hours glass" style="margin-top: 40px;">
+    <h3 style="color: var(--light); font-size: 1.4em; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; justify-content: center;">
+      <i class="fas fa-clock" style="color: var(--gold);"></i> أوقات العمل
+    </h3>
+    
+    <div class="hours-grid">
+      <div class="hour-item">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> السبت</div>
+        <div class="hour-time"><i class="fas fa-moon"></i> ٥ م - ٣ ص</div>
+      </div>
+      <div class="hour-item">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> الأحد</div>
+        <div class="hour-time"><i class="fas fa-moon"></i> ٥ م - ٣ ص</div>
+      </div>
+      <div class="hour-item">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> الاثنين</div>
+        <div class="hour-time"><i class="fas fa-moon"></i> ٥ م - ٣ ص</div>
+      </div>
+      <div class="hour-item">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> الثلاثاء</div>
+        <div class="hour-time"><i class="fas fa-moon"></i> ٥ م - ٣ ص</div>
+      </div>
+      <div class="hour-item">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> الأربعاء</div>
+        <div class="hour-time"><i class="fas fa-moon"></i> ٥ م - ٣ ص</div>
+      </div>
+      <div class="hour-item highlight">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> الخميس</div>
+        <div class="hour-time"><i class="fas fa-star"></i> ٥ م - ٦ ص</div>
+      </div>
+      <div class="hour-item highlight">
+        <div class="hour-day"><i class="fas fa-calendar-day"></i> الجمعة</div>
+        <div class="hour-time"><i class="fas fa-star"></i> ٨ م - ٦ ص</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- حقوق النشر -->
+  <footer class="copyright-footer">
+    <p>جميع الحقوق محفوظة &copy; جلسات سكون 2026</p>
+  </footer>
+</main>
+
+<!-- نافذة تأكيد الدفع -->
+<div class="modal" id="paymentModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+    <h2>تم الحجز بنجاح! 🎉</h2>
+    <p class="modal-sub">يرجى تحويل المبلغ إلى الحساب التالي لتأكيد الحجز</p>
+
+    <div class="payment-card">
+      <div class="payment-row">
+        <span><i class="fas fa-user"></i> اسم صاحب الحساب</span>
+        <strong>وائل سعيد الغامدي</strong>
+      </div>
+      <div class="payment-row">
+        <span><i class="fas fa-university"></i> اسم البنك</span>
+        <strong>بنك الإنماء</strong>
+      </div>
+      <div class="payment-row">
+        <span><i class="fas fa-credit-card"></i> رقم الآيبان</span>
+        <strong class="copyable" onclick="copyText('SA4105000068206125044000', this)">SA41 0500 0068 2061 2504 4000</strong>
+      </div>
+      <div class="payment-row">
+        <span><i class="fas fa-hashtag"></i> رقم الحساب</span>
+        <strong class="copyable" onclick="copyText('68206125044000', this)">68206125044000</strong>
+      </div>
+      <div class="payment-row total-row">
+        <span><i class="fas fa-coins"></i> المبلغ المطلوب</span>
+        <strong id="payAmount">-</strong>
+      </div>
+      <div class="payment-row deposit-row">
+        <span><i class="fas fa-hand-holding-usd"></i> العربون</span>
+        <strong style="color:#f97316 !important;">50 ريال <small style="color:#f97316; font-weight:400;">(غير مسترد في حال الإلغاء)</small></strong>
+      </div>
+    </div>
+
+    <p class="modal-note"><i class="fas fa-info-circle"></i> يرجى إرسال صورة التحويل عبر واتساب على الرقم <a href="https://wa.me/966500630782" target="_blank" style="color:var(--gold-light); text-decoration:none; font-weight:700;">0500630782</a></p>
+    <button class="btn-primary" onclick="closeModal()">حسناً، شكراً</button>
+  </div>
+</div>
+
+<!-- تنبيه -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDK (Firestore) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<script src="script.js"></script>
+
+<!-- جزيئات الغبار الخافتة -->
+<script>
+(function createDustParticles() {
+  const particlesCount = 20;
+  for (let i = 0; i < particlesCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'snowflake';
+    particle.textContent = '•';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.fontSize = (Math.random() * 1.5 + 0.5) + 'em';
+    particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+    particle.style.animationDelay = (Math.random() * 5) + 's';
+    document.body.appendChild(particle);
+  }
+})();
+</script>
+</body>
+</html>
