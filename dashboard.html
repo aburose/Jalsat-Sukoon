@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم - جلسات سكون الشاطئية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== شاشة تسجيل الدخول ===== */
+#loginScreen {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #121212 0%, #1a1a1a 50%, #222222 100%);
+  padding: 20px;
+}
+#loginScreen::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
+  background-size: 200% 200%; opacity: 0.6;
+  animation: auroraMove 20s ease-in-out infinite alternate;
+}
+@keyframes auroraMove {
+  0% { transform: scale(1) translate(0,0); }
+  100% { transform: scale(1.2) translate(-20px, -10px); }
+}
+
+.login-box {
+  position: relative; z-index: 1;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 25px;
+  padding: 50px 40px;
+  max-width: 420px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  text-align: center;
+  animation: slideUp 0.5s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.login-box .lock-icon {
+  width: 120px; height: 120px; margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+}
+.login-box .lock-icon img {
+  width: 100%; height: 100%; object-fit: contain;
+  border-radius: 50%; background: #fff; padding: 5px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.login-box h2 { color: #e5e5e5; margin-bottom: 8px; font-size: 1.6em; }
+.login-box p { color: #888888; margin-bottom: 30px; font-size: 0.95em; }
+.login-box .form-group { text-align: right; margin-bottom: 18px; }
+.login-box .form-group label {
+  display: block; margin-bottom: 8px; font-weight: 700;
+  color: #e5e5e5; font-size: 0.95em;
+}
+.login-box .form-group label i { color: #a3a3a3; margin-left: 6px; }
+.login-box input {
+  width: 100%; padding: 13px 15px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(18,18,18,0.9); color: #e5e5e5;
+  font-family: 'Cairo'; font-size: 1em;
+  transition: 0.3s;
+}
+.login-box input:focus {
+  outline: none; border-color: #a3a3a3;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+}
+.login-error {
+  display: none; background: rgba(239,68,68,0.1);
+  border: 1px solid #ef4444; color: #ef4444;
+  padding: 10px; border-radius: 10px;
+  margin-bottom: 15px; font-size: 0.9em;
+  font-weight: 700;
+}
+.login-error.show { display: block; animation: shake 0.4s; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+.login-btn {
+  width: 100%; padding: 14px; border: none; border-radius: 12px;
+  background: linear-gradient(135deg, #4a4a4a, #2d2d2d);
+  color: #fff; font-family: 'Cairo'; font-size: 1.1em;
+  font-weight: 800; cursor: pointer; transition: 0.3s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.login-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #5a5a5a, #3d3d3d);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* أزرار التنقل العلوية */
+.logout-btn {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid #ef4444; color: #ef4444;
+  padding: 8px 16px; border-radius: 10px;
+  cursor: pointer; font-family: 'Cairo';
+  font-weight: 700; transition: 0.3s;
+  display: flex; align-items: center; gap: 6px;
+}
+.logout-btn:hover { background: #ef4444; color: white; }
+
+.users-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #e5e5e5;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Cairo';
+  font-weight: 700;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.users-btn:hover {
+  background: #444;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#dashboardContent { display: none; }
+#dashboardContent.show { display: block; }
+
+/* ===== الإحصائيات ===== */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; margin-bottom: 30px; }
+.stat-card {
+  background: rgba(30,30,30,0.7); backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px; padding: 25px; text-align: center;
+  transition: 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+.stat-card i { font-size: 2.5em; color: #a3a3a3; margin-bottom: 10px; transition: transform 0.3s; }
+.stat-card:hover i { transform: scale(1.15); }
+.stat-card h3 { font-size: 2em; color: #e5e5e5; margin-bottom: 5px; }
+.stat-card p { color: #888888; font-weight: 600; }
+
+/* ===== الفلترة ===== */
+.filters-box {
+  background: rgba(30,30,30,0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.filters-box h3 {
+  color: #e5e5e5; margin-bottom: 20px;
+  font-size: 1.2em; display: flex; align-items: center; gap: 10px;
+}
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+.filter-group { display: flex; flex-direction: column; }
+.filter-group label {
+  font-size: 0.9em; color: #888888;
+  margin-bottom: 6px; font-weight: 700;
+}
+.filter-group label i { color: #a3a3a3; margin-left: 5px; }
+.filter-group input,
+.filter-group select {
+  width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(18,18,18,0.8); color: #e5e5e5;
+  font-family: 'Cairo'; font-size: 0.95em; font-weight: 600;
+  transition: 0.3s;
+}
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none; border-color: #a3a3a3;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+}
+.filter-actions {
+  display: flex; gap: 10px; margin-top: 15px;
+  flex-wrap: wrap; align-items: center;
+}
+.btn-reset {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #e5e5e5;
+  padding: 10px 18px; border-radius: 10px;
+  cursor: pointer; font-family: 'Cairo';
+  font-weight: 700; transition: 0.3s;
+  display: flex; align-items: center; gap: 8px;
+}
+.btn-reset:hover {
+  background: #444; color: #fff;
+  transform: translateY(-2px);
+}
+.results-count {
+  color: #888888; font-size: 0.95em; font-weight: 600;
+  padding: 10px 15px; background: rgba(255,255,255,0.03);
+  border-right: 3px solid #555;
+  border-radius: 8px; margin-right: auto;
+}
+.results-count strong { color: #e5e5e5; }
+
+/* ===== الجدول ===== */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 12px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.05); }
+th { color: #a3a3a3; font-weight: 800; background: rgba(255,255,255,0.02); }
+td { color: #e5e5e5; font-weight: 600; }
+tr:hover { background: rgba(255,255,255,0.03); }
+.badge { padding: 4px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 700; }
+.badge.silver { background: rgba(163,163,163,0.15); color: #d4d4d4; }
+.badge.gold { background: rgba(255,255,255,0.1); color: #fff; }
+.btn-clear {
+  background: rgba(239,68,68,0.1); border: 1px solid var(--danger);
+  color: var(--danger); padding: 10px 20px; border-radius: 10px;
+  cursor: pointer; font-family: 'Cairo'; font-weight: 700;
+  margin-bottom: 20px; transition: 0.3s;
+}
+.btn-clear:hover { background: var(--danger); color: white; }
+
+.no-results {
+  text-align: center; padding: 40px; color: #888888;
+}
+.no-results i {
+  font-size: 3em; color: #555;
+  display: block; margin-bottom: 15px;
+}
+
+/* ===== أزرار الإجراءات ===== */
+.action-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.action-btn {
+  border: none; padding: 8px 11px; border-radius: 8px;
+  cursor: pointer; font-family: 'Cairo'; font-size: 0.85em;
+  font-weight: 700; transition: 0.3s;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: white; min-width: 32px; min-height: 32px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.action-btn.confirm { background: #10b981; }
+.action-btn.confirm:hover:not(:disabled) { background: #059669; transform: translateY(-2px); }
+.action-btn.edit { background: #3b82f6; }
+.action-btn.edit:hover:not(:disabled) { background: #2563eb; transform: translateY(-2px); }
+.action-btn.cancel { background: #f59e0b; }
+.action-btn.cancel:hover:not(:disabled) { background: #d97706; transform: translateY(-2px); }
+.action-btn.delete { background: #ef4444; }
+.action-btn.delete:hover:not(:disabled) { background: #dc2626; transform: translateY(-2px); }
+.action-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+/* ===== شارة الحالة ===== */
+.status-badge {
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800;
+  display: inline-flex; align-items: center; gap: 4px;
+  white-space: nowrap;
+}
+.status-badge.pending { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.status-badge.confirmed { background: rgba(16,185,129,0.15); color: #10b981; }
+.status-badge.cancelled { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+tr.row-cancelled td { opacity: 0.5; text-decoration: line-through; }
+tr.row-cancelled td:last-child { text-decoration: none; opacity: 1; }
+
+/* ===== مودال التعديل ===== */
+.edit-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+  z-index: 9999; align-items: center; justify-content: center;
+  padding: 20px; overflow-y: auto;
+}
+.edit-modal.active { display: flex; }
+.edit-modal-content {
+  background: #1e1e1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 30px;
+  max-width: 500px; width: 100%;
+  position: relative; animation: slideUp 0.3s ease;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+}
+.edit-modal-content h3 {
+  color: #e5e5e5; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.edit-modal-content .edit-group { margin-bottom: 15px; }
+.edit-modal-content label {
+  display: block; margin-bottom: 6px;
+  color: #888888; font-weight: 700; font-size: 0.9em;
+}
+.edit-modal-content input,
+.edit-modal-content select {
+  width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(18,18,18,0.8); color: #e5e5e5;
+  font-family: 'Cairo'; font-size: 0.95em; font-weight: 600;
+}
+.edit-modal-content input:focus,
+.edit-modal-content select:focus {
+  outline: none; border-color: #a3a3a3;
+}
+.edit-actions { display: flex; gap: 10px; margin-top: 20px; }
+.edit-actions button {
+  flex: 1; padding: 12px; border: none; border-radius: 10px;
+  font-family: 'Cairo'; font-weight: 800; cursor: pointer; transition: 0.3s;
+}
+.edit-actions .save { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.edit-actions .save:hover { transform: translateY(-2px); }
+.edit-actions .cancel-btn { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid #ef4444; }
+.edit-actions .cancel-btn:hover { background: #ef4444; color: white; }
+
+/* ===== مودال إدارة المستخدمين ===== */
+.users-modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+  z-index: 9999; align-items: center; justify-content: center;
+  padding: 20px; overflow-y: auto;
+}
+.users-modal.active { display: flex; }
+
+.users-modal-content {
+  background: #1e1e1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 30px;
+  max-width: 750px; width: 100%; max-height: 90vh; overflow-y: auto;
+  position: relative; animation: slideUp 0.3s ease;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+}
+.users-modal-content h3 {
+  color: #e5e5e5; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px; font-size: 1.4em;
+}
+.users-modal-close {
+  position: absolute; top: 15px; left: 20px;
+  background: rgba(255,255,255,0.05); border: none; color: #888;
+  width: 36px; height: 36px; border-radius: 50%;
+  font-size: 1.5em; cursor: pointer; transition: 0.3s;
+  display: flex; align-items: center; justify-content: center;
+}
+.users-modal-close:hover { background: #ef4444; color: white; transform: rotate(90deg); }
+
+.user-form {
+  background: rgba(18,18,18,0.6);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 15px; padding: 20px; margin-bottom: 20px;
+}
+.user-form h4 {
+  color: #a3a3a3; margin-bottom: 15px; font-size: 1em;
+  display: flex; align-items: center; gap: 8px;
+}
+.user-form-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; margin-bottom: 15px;
+}
+.user-form-grid label {
+  display: block; color: #888888; font-size: 0.85em; font-weight: 700; margin-bottom: 5px;
+}
+.user-form-grid input,
+.user-form-grid select {
+  width: 100%; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #121212; color: #e5e5e5;
+  font-family: 'Cairo'; font-size: 0.95em; font-weight: 600;
+}
+.user-form-grid input:focus,
+.user-form-grid select:focus {
+  outline: none; border-color: #a3a3a3;
+}
+
+.user-form-actions { display: flex; gap: 10px; }
+.user-form-actions button {
+  padding: 10px 20px; border: none; border-radius: 10px;
+  font-family: 'Cairo'; font-weight: 800; cursor: pointer; transition: 0.3s;
+}
+.btn-add-user { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+.btn-add-user:hover { transform: translateY(-2px); }
+.btn-cancel-edit { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid #ef4444; display: none; }
+.btn-cancel-edit.show { display: block; }
+
+.users-table-wrap { overflow-x: auto; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+.users-table { width: 100%; border-collapse: collapse; background: #1e1e1e; }
+.users-table th, .users-table td {
+  padding: 12px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.users-table th {
+  color: #a3a3a3; font-weight: 800; background: rgba(255,255,255,0.02); font-size: 0.9em;
+}
+.users-table td { color: #e5e5e5; font-size: 0.9em; font-weight: 600; }
+.users-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.role-badge { padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: 800; }
+.role-badge.admin { background: rgba(239,68,68,0.15); color: #ef4444; }
+.role-badge.manager { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.role-badge.viewer { background: rgba(163,163,163,0.15); color: #d4d4d4; }
+
+.users-actions { display: flex; gap: 5px; }
+.btn-user-action {
+  border: none; padding: 6px 10px; border-radius: 8px;
+  cursor: pointer; font-size: 0.85em; transition: 0.3s; color: white;
+}
+.btn-user-action.edit { background: #3b82f6; }
+.btn-user-action.edit:hover { background: #2563eb; transform: translateY(-2px); }
+.btn-user-action.delete { background: #ef4444; }
+.btn-user-action.delete:hover { background: #dc2626; transform: translateY(-2px); }
+.btn-user-action:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.empty-users { text-align: center; padding: 30px; color: #888888; font-style: italic; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ===== شاشة تسجيل الدخول ===== -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="lock-icon">
+      <img src="logo.jpg" alt="شعار جلسات سكون">
+    </div>
+    <h2>لوحة التحكم</h2>
+    <p>جلسات سكون الشاطئية - يرجى تسجيل الدخول</p>
+
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i> اسم المستخدم أو كلمة المرور غير صحيحة
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-user"></i> اسم المستخدم</label>
+      <input type="text" id="loginUsername" placeholder="أدخل اسم المستخدم" autocomplete="username">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-key"></i> كلمة المرور</label>
+      <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور" autocomplete="current-password">
+    </div>
+
+    <button class="login-btn" onclick="handleLogin()">
+      <i class="fas fa-sign-in-alt"></i> دخول
+    </button>
+  </div>
+</div>
+
+<!-- ===== محتوى لوحة التحكم ===== -->
+<div id="dashboardContent">
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="logo.jpg" alt="شعار جلسات سكون" style="height: 45px; width: 45px; border-radius: 50%; object-fit: cover; background: #fff; padding: 3px;">
+        <span>جلسات سكون الشاطئية</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-book"></i> الحجز</a>
+        <a href="dashboard.html" class="active"><i class="fas fa-chart-line"></i> لوحة التحكم</a>
+        <button class="users-btn" onclick="openUsersModal()">
+          <i class="fas fa-users-cog"></i> إدارة المستخدمين
+        </button>
+        <button class="logout-btn" onclick="handleLogout()">
+          <i class="fas fa-sign-out-alt"></i> خروج
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" style="padding: 40px 20px 20px;">
+    <h1 style="color: #e5e5e5; text-shadow: none; background: none; -webkit-text-fill-color: initial;">📊 لوحة التحكم</h1>
+    <p>إدارة حجوزات جلسات سكون الشاطئية</p>
+  </header>
+
+  <main class="container">
+    <!-- إحصائيات -->
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <!-- ===== صندوق الفلترة ===== -->
+    <div class="filters-box">
+      <h3><i class="fas fa-filter"></i> فلترة الحجوزات</h3>
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label><i class="fas fa-search"></i> بحث (اسم / جوال)</label>
+          <input type="text" id="filterSearch" placeholder="ابحث بالاسم أو رقم الجوال...">
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-campground"></i> الجلسة</label>
+          <select id="filterSession">
+            <option value="">كل الجلسات</option>
+            <option value="101">جلسة 101</option>
+            <option value="102">جلسة 102</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-gem"></i> الباقة</label>
+          <select id="filterPackage">
+            <option value="">كل الباقات</option>
+            <option value="silver">الباقة الفضية</option>
+            <option value="gold">الباقة الذهبية</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-circle-check"></i> حالة الحجز</label>
+          <select id="filterStatus">
+            <option value="">كل الحالات</option>
+            <option value="pending">🟡 معلّق</option>
+            <option value="confirmed">🟢 مؤكد</option>
+            <option value="cancelled">🔴 ملغى</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-calendar-alt"></i> من تاريخ</label>
+          <input type="date" id="filterDateFrom">
+        </div>
+        <div class="filter-group">
+          <label><i class="fas fa-calendar-check"></i> إلى تاريخ</label>
+          <input type="date" id="filterDateTo">
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button class="btn-reset" onclick="resetFilters()">
+          <i class="fas fa-redo"></i> إعادة تعيين
+        </button>
+        <div class="results-count" id="resultsCount">
+          النتائج: <strong>0</strong> حجز
+        </div>
+      </div>
+    </div>
+
+    <!-- الحجوزات -->
+    <div class="glass">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <h2 style="color:#e5e5e5;"><i class="fas fa-list"></i> الحجوزات</h2>
+        <button class="btn-clear" onclick="clearAll()"><i class="fas fa-trash"></i> حذف الكل</button>
+      </div>
+      <div class="table-wrap">
+        <table id="bookingsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الجلسة</th>
+              <th>الباقة</th>
+              <th>التاريخ</th>
+              <th>الوقت</th>
+              <th>الساعات</th>
+              <th>الأشخاص</th>
+              <th>الاسم</th>
+              <th>الجوال</th>
+              <th>المجموع</th>
+              <th>الحالة</th>
+              <th>إجراء</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<!-- ===== نافذة تعديل الحجز ===== -->
+<div class="edit-modal" id="editModal">
+  <div class="edit-modal-content">
+    <h3><i class="fas fa-edit"></i> تعديل الحجز</h3>
+
+    <input type="hidden" id="editBookingId">
+
+    <div class="edit-group">
+      <label>الاسم</label>
+      <input type="text" id="editName">
+    </div>
+
+    <div class="edit-group">
+      <label>رقم الجوال</label>
+      <input type="tel" id="editPhone" maxlength="10">
+    </div>
+
+    <div class="edit-group">
+      <label>التاريخ</label>
+      <input type="date" id="editDate">
+    </div>
+
+    <div class="edit-group">
+      <label>وقت البدء</label>
+      <select id="editStartTime"></select>
+    </div>
+
+    <div class="edit-group">
+      <label>عدد الساعات</label>
+      <select id="editHours">
+        <option value="1">ساعة واحدة</option>
+        <option value="2">ساعتان</option>
+        <option value="3">3 ساعات</option>
+        <option value="4">4 ساعات</option>
+        <option value="5">5 ساعات</option>
+        <option value="6">6 ساعات</option>
+      </select>
+    </div>
+
+    <div class="edit-group">
+      <label>عدد الأشخاص</label>
+      <input type="number" id="editPeople" min="1" max="10">
+    </div>
+
+    <div class="edit-actions">
+      <button class="save" onclick="saveEdit()"><i class="fas fa-save"></i> حفظ التعديل</button>
+      <button class="cancel-btn" onclick="closeEditModal()"><i class="fas fa-times"></i> إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== مودال إدارة المستخدمين ===== -->
+<div class="users-modal" id="usersModal">
+  <div class="users-modal-content">
+    <button class="users-modal-close" onclick="closeUsersModal()">&times;</button>
+    <h3><i class="fas fa-users-cog"></i> إدارة مستخدمي النظام</h3>
+
+    <!-- نموذج إضافة/تعديل مستخدم -->
+    <div class="user-form">
+      <h4 id="userFormTitle"><i class="fas fa-user-plus"></i> إضافة مستخدم جديد</h4>
+      <input type="hidden" id="editUserId">
+
+      <div class="user-form-grid">
+        <div>
+          <label>اسم المستخدم</label>
+          <input type="text" id="userUsername" placeholder="أدخل اسم المستخدم">
+        </div>
+        <div>
+          <label>كلمة المرور</label>
+          <input type="text" id="userPassword" placeholder="أدخل كلمة المرور">
+        </div>
+        <div>
+          <label>الاسم الكامل</label>
+          <input type="text" id="userFullName" placeholder="الاسم الكامل">
+        </div>
+        <div>
+          <label>الصلاحية</label>
+          <select id="userRole">
+            <option value="admin">🔴 مدير</option>
+            <option value="manager">🔵 مشرف</option>
+            <option value="viewer">⚪ مشاهد</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="user-form-actions">
+        <button class="btn-add-user" onclick="saveUser()" id="saveUserBtn">
+          <i class="fas fa-plus"></i> إضافة
+        </button>
+        <button class="btn-cancel-edit" onclick="cancelEditUser()" id="cancelEditBtn">
+          <i class="fas fa-times"></i> إلغاء التعديل
+        </button>
+      </div>
+    </div>
+
+    <!-- جدول المستخدمين -->
+    <div class="users-table-wrap">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>اسم المستخدم</th>
+            <th>الاسم الكامل</th>
+            <th>الصلاحية</th>
+            <th>إجراء</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- جزيئات الغبار الخافتة -->
+<script>
+(function createDustParticles() {
+  const particlesCount = 20;
+  for (let i = 0; i < particlesCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'snowflake';
+    particle.textContent = '•';
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.fontSize = (Math.random() * 1.5 + 0.5) + 'em';
+    particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+    particle.style.animationDelay = (Math.random() * 5) + 's';
+    document.body.appendChild(particle);
+  }
+})();
+</script>
+
+<script>
+// ========== إدارة المستخدمين ==========
+const USERS_KEY = 'beachDashboardUsers';
+const SESSION_KEY = 'beachDashboardAuth';
+
+const DEFAULT_ADMIN = {
+  id: 1,
+  username: "200057529",
+  password: "AOPSaops619@%",
+  fullName: "المدير الرئيسي",
+  role: "admin"
+};
+
+function getUsers() {
+  let users = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+  if (users.length === 0) {
+    users = [DEFAULT_ADMIN];
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  }
+  return users;
+}
+
+function saveUsers(users) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+}
+
+function validateCredentials(username, password) {
+  return getUsers().find(u => u.username === username && u.password === password);
+}
+
+// ========== دوال المصادقة ==========
+function isLoggedIn() {
+  return !!sessionStorage.getItem(SESSION_KEY);
+}
+
+function handleLogin() {
+  const user = document.getElementById('loginUsername').value.trim();
+  const pass = document.getElementById('loginPassword').value;
+  const err  = document.getElementById('loginError');
+
+  const validUser = validateCredentials(user, pass);
+  if (validUser) {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+      username: validUser.username,
+      fullName: validUser.fullName,
+      role: validUser.role
+    }));
+    err.classList.remove('show');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboardContent').classList.add('show');
+    initDashboard();
+  } else {
+    err.classList.add('show');
+    document.getElementById('loginPassword').value = '';
+    document.getElementById('loginPassword').focus();
+  }
+}
+
+function handleLogout() {
+  if (!confirm('هل تريد تسجيل الخروج؟')) return;
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const u = document.getElementById('loginUsername');
+  const p = document.getElementById('loginPassword');
+  if (p) p.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+  if (u) u.addEventListener('keypress', (e) => { if (e.key === 'Enter') p.focus(); });
+
+  if (isLoggedIn()) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboardContent').classList.add('show');
+    initDashboard();
+  }
+});
+
+// ========== منطق لوحة التحكم ==========
+const $ = (id) => document.getElementById(id);
+function getBookings() { return JSON.parse(localStorage.getItem('beachBookings') || '[]'); }
+function saveBookings(list) { localStorage.setItem('beachBookings', JSON.stringify(list)); }
+
+function formatHour(h) {
+  const hh = ((h % 24) + 24) % 24;
+  const period = hh >= 12 && hh < 24 ? 'م' : 'ص';
+  const display = hh > 12 ? hh - 12 : hh === 0 ? 12 : hh;
+  return `${display}:00 ${period}`;
+}
+function formatDate(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('ar-SA', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+// ========== الإحصائيات ==========
+function renderStats() {
+  const list = getBookings();
+  const total = list.reduce((s, b) => s + b.total, 0);
+  const sessions = { 101: 0, 102: 0 };
+  const packages = { silver: 0, gold: 0 };
+  list.forEach(b => { sessions[b.session]++; packages[b.package]++; });
+
+  const upcoming = list.filter(b => b.date >= new Date().toISOString().split('T')[0]).length;
+
+  $('statsGrid').innerHTML = `
+    <div class="stat-card"><i class="fas fa-book"></i><h3>${list.length}</h3><p>إجمالي الحجوزات</p></div>
+    <div class="stat-card"><i class="fas fa-calendar-check"></i><h3>${upcoming}</h3><p>حجوزات قادمة</p></div>
+    <div class="stat-card"><i class="fas fa-money-bill-wave"></i><h3>${total} ر.س</h3><p>إجمالي الإيرادات</p></div>
+    <div class="stat-card"><i class="fas fa-campground"></i><h3>${sessions[101]}</h3><p>حجوزات جلسة 101</p></div>
+    <div class="stat-card"><i class="fas fa-umbrella-beach"></i><h3>${sessions[102]}</h3><p>حجوزات جلسة 102</p></div>
+    <div class="stat-card"><i class="fas fa-medal"></i><h3>${packages.silver}</h3><p>الباقة الفضية</p></div>
+    <div class="stat-card"><i class="fas fa-crown"></i><h3>${packages.gold}</h3><p>الباقة الذهبية</p></div>
+  `;
+}
+
+// ========== الفلترة ==========
+function getFilteredBookings() {
+  const search  = $('filterSearch').value.trim().toLowerCase();
+  const session = $('filterSession').value;
+  const pkg     = $('filterPackage').value;
+  const status  = $('filterStatus').value;
+  const from    = $('filterDateFrom').value;
+  const to      = $('filterDateTo').value;
+
+  return getBookings().filter(b => {
+    if (search) {
+      const matchName  = b.name.toLowerCase().includes(search);
+      const matchPhone = b.phone.includes(search);
+      if (!matchName && !matchPhone) return false;
+    }
+    if (session && b.session !== session) return false;
+    if (pkg && b.package !== pkg) return false;
+    if (status && (b.status || 'pending') !== status) return false;
+    if (from && b.date < from) return false;
+    if (to && b.date > to) return false;
+    return true;
+  });
+}
+
+// ========== الجدول ==========
+function renderTable() {
+  const filtered = getFilteredBookings().sort((a,b) => new Date(b.date) - new Date(a.date));
+  const tbody = document.querySelector('#bookingsTable tbody');
+
+  const countBox = $('resultsCount');
+  const total = getBookings().length;
+  if (filtered.length === total) {
+    countBox.innerHTML = `النتائج: <strong>${filtered.length}</strong> حجز (كل الحجوزات)`;
+  } else {
+    countBox.innerHTML = `النتائج: <strong>${filtered.length}</strong> من أصل ${total} حجز`;
+  }
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="12">
+        <div class="no-results">
+          <i class="fas fa-search"></i>
+          لا توجد حجوزات مطابقة للفلترة الحالية
+        </div>
+      </td></tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((b, i) => {
+    const status = b.status || 'pending';
+    const rowClass = status === 'cancelled' ? 'row-cancelled' : '';
+
+    const statusLabel = {
+      pending:   '<i class="fas fa-clock"></i> معلّق',
+      confirmed: '<i class="fas fa-check-circle"></i> مؤكد',
+      cancelled: '<i class="fas fa-times-circle"></i> ملغى'
+    }[status];
+
+    return `
+      <tr class="${rowClass}">
+        <td>${i+1}</td>
+        <td>${b.session}</td>
+        <td><span class="badge ${b.package}">${b.package === 'silver' ? 'فضية' : 'ذهبية'}</span></td>
+        <td>${formatDate(b.date)}</td>
+        <td>${formatHour(b.startHour)} - ${formatHour(b.endHour)}</td>
+        <td>${b.hours}</td>
+        <td>${b.people}</td>
+        <td>${b.name}</td>
+        <td>${b.phone}</td>
+        <td>${b.total} ر.س</td>
+        <td><span class="status-badge ${status}">${statusLabel}</span></td>
+        <td>
+          <div class="action-btns">
+            <button class="action-btn confirm" title="تأكيد" onclick="confirmBooking(${b.id})"
+              ${status === 'confirmed' ? 'disabled' : ''}>
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="action-btn edit" title="تعديل" onclick="openEditModal(${b.id})"
+              ${status === 'cancelled' ? 'disabled' : ''}>
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="action-btn cancel" title="إلغاء" onclick="cancelBooking(${b.id})"
+              ${status === 'cancelled' ? 'disabled' : ''}>
+              <i class="fas fa-ban"></i>
+            </button>
+            <button class="action-btn delete" title="حذف" onclick="deleteBooking(${b.id})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ========== إعادة تعيين الفلترة ==========
+function resetFilters() {
+  $('filterSearch').value = '';
+  $('filterSession').value = '';
+  $('filterPackage').value = '';
+  $('filterStatus').value = '';
+  $('filterDateFrom').value = '';
+  $('filterDateTo').value = '';
+  renderTable();
+}
+
+// ========== ربط مستمعات الفلترة ==========
+function setupFilterListeners() {
+  $('filterSearch').addEventListener('input', renderTable);
+  $('filterSession').addEventListener('change', renderTable);
+  $('filterPackage').addEventListener('change', renderTable);
+  $('filterStatus').addEventListener('change', renderTable);
+  $('filterDateFrom').addEventListener('change', renderTable);
+  $('filterDateTo').addEventListener('change', renderTable);
+}
+
+// ========== تأكيد الحجز ==========
+function confirmBooking(id) {
+  const list = getBookings();
+  const idx = list.findIndex(b => b.id === id);
+  if (idx === -1) return;
+  if (list[idx].status === 'confirmed') return;
+  if (!confirm(`تأكيد الحجز للعميل: ${list[idx].name}؟`)) return;
+
+  list[idx].status = 'confirmed';
+  saveBookings(list);
+  renderStats();
+  renderTable();
+}
+
+// ========== إلغاء الحجز ==========
+function cancelBooking(id) {
+  const list = getBookings();
+  const idx = list.findIndex(b => b.id === id);
+  if (idx === -1) return;
+  if (list[idx].status === 'cancelled') return;
+  if (!confirm(`إلغاء الحجز للعميل: ${list[idx].name}؟`)) return;
+
+  list[idx].status = 'cancelled';
+  saveBookings(list);
+  renderStats();
+  renderTable();
+}
+
+// ========== فتح مودال التعديل ==========
+function openEditModal(id) {
+  const booking = getBookings().find(b => b.id === id);
+  if (!booking) return;
+
+  $('editBookingId').value = id;
+  $('editName').value = booking.name;
+  $('editPhone').value = booking.phone;
+  $('editDate').value = booking.date;
+  $('editHours').value = booking.hours;
+  $('editPeople').value = booking.people;
+
+  const sel = $('editStartTime');
+  sel.innerHTML = '';
+  for (let h = 17; h <= 29; h++) {
+    const opt = document.createElement('option');
+    opt.value = h;
+    const hh = ((h % 24) + 24) % 24;
+    const period = hh >= 12 && hh < 24 ? 'م' : 'ص';
+    const display = hh > 12 ? hh - 12 : hh === 0 ? 12 : hh;
+    opt.textContent = `${display}:00 ${period}`;
+    if (h === booking.startHour) opt.selected = true;
+    sel.appendChild(opt);
+  }
+
+  $('editModal').classList.add('active');
+}
+
+function closeEditModal() {
+  $('editModal').classList.remove('active');
+}
+
+// ========== حفظ التعديل ==========
+function saveEdit() {
+  const id = parseInt($('editBookingId').value);
+  const name = $('editName').value.trim();
+  const phone = $('editPhone').value.trim();
+  const date = $('editDate').value;
+  const startHour = parseInt($('editStartTime').value);
+  const hours = parseInt($('editHours').value);
+  const people = parseInt($('editPeople').value);
+
+  if (!name) return alert('الرجاء إدخال الاسم');
+  if (!phone || !/^05\d{8}$/.test(phone)) return alert('رقم الجوال غير صحيح (05xxxxxxxx)');
+  if (!date) return alert('الرجاء اختيار التاريخ');
+  if (!startHour || !hours) return alert('الرجاء اختيار الوقت والساعات');
+  if (!people || people < 1) return alert('عدد الأشخاص غير صحيح');
+
+  const endHour = startHour + hours;
+
+  if (endHour > 30) {
+    return alert('وقت الانتهاء يتجاوز 6 صباحاً');
+  }
+
+  const list = getBookings();
+  const idx = list.findIndex(b => b.id === id);
+  if (idx === -1) return;
+
+  if (list[idx].package === 'silver' && people !== 2) {
+    return alert('الباقة الفضية: شخصان فقط');
+  }
+  if (list[idx].package === 'gold' && (people < 1 || people > 10)) {
+    return alert('الباقة الذهبية: من 1 إلى 10 أشخاص');
+  }
+
+  const overlap = list.some(b => {
+    if (b.id === id) return false;
+    if (b.session !== list[idx].session || b.date !== date) return false;
+    if (b.status === 'cancelled') return false;
+    return startHour < b.endHour && endHour > b.startHour;
+  });
+  if (overlap) {
+    return alert('⚠️ الوقت الجديد يتعارض مع حجز آخر. الرجاء اختيار وقت مختلف');
+  }
+
+  const SILVER_PRICES = { 1: 60, 2: 120, 3: 180, 4: 240, 5: 275, 6: 330 };
+  const GOLD_PRICES = { 1: 80, 2: 160, 3: 240, 4: 320, 5: 350, 6: 400 };
+  const newTotal = list[idx].package === 'silver'
+    ? SILVER_PRICES[hours]
+    : GOLD_PRICES[hours];
+
+  list[idx] = {
+    ...list[idx],
+    name,
+    phone,
+    date,
+    startHour,
+    endHour,
+    hours,
+    people,
+    total: newTotal,
+  };
+  saveBookings(list);
+  renderStats();
+  renderTable();
+  closeEditModal();
+}
+
+// ========== حذف ==========
+function deleteBooking(id) {
+  if (!confirm('هل أنت متأكد من حذف هذا الحجز نهائيًا؟')) return;
+  saveBookings(getBookings().filter(b => b.id !== id));
+  renderStats(); renderTable();
+}
+
+function clearAll() {
+  if (!confirm('سيتم حذف جميع الحجوزات نهائياً. متأكد؟')) return;
+  saveBookings([]);
+  renderStats(); renderTable();
+}
+
+function initDashboard() {
+  renderStats();
+  renderTable();
+  setupFilterListeners();
+}
+
+// ========== إدارة المستخدمين - الدوال ==========
+
+function openUsersModal() {
+  renderUsersTable();
+  document.getElementById('usersModal').classList.add('active');
+}
+
+function closeUsersModal() {
+  document.getElementById('usersModal').classList.remove('active');
+  cancelEditUser();
+}
+
+function renderUsersTable() {
+  const users = getUsers();
+  const tbody = document.getElementById('usersTableBody');
+
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-users">لا يوجد مستخدمون</td></tr>';
+    return;
+  }
+
+  const roleLabel = {
+    admin: '🔴 مدير',
+    manager: '🔵 مشرف',
+    viewer: '⚪ مشاهد'
+  };
+
+  tbody.innerHTML = users.map((u, i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td><strong>${u.username}</strong></td>
+      <td>${u.fullName}</td>
+      <td><span class="role-badge ${u.role}">${roleLabel[u.role]}</span></td>
+      <td>
+        <div class="users-actions">
+          <button class="btn-user-action edit" title="تعديل" onclick="editUser(${u.id})">
+            <i class="fas fa-pen"></i>
+          </button>
+          <button class="btn-user-action delete" title="حذف" onclick="deleteUser(${u.id})"
+            ${u.id === 1 ? 'disabled' : ''}>
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function saveUser() {
+  const id = document.getElementById('editUserId').value;
+  const username = document.getElementById('userUsername').value.trim();
+  const password = document.getElementById('userPassword').value;
+  const fullName = document.getElementById('userFullName').value.trim();
+  const role = document.getElementById('userRole').value;
+
+  if (!username) return alert('الرجاء إدخال اسم المستخدم');
+  if (!password) return alert('الرجاء إدخال كلمة المرور');
+  if (!fullName) return alert('الرجاء إدخال الاسم الكامل');
+
+  const users = getUsers();
+
+  const duplicate = users.find(u => u.username === username && u.id !== parseInt(id));
+  if (duplicate) return alert('⚠️ اسم المستخدم موجود بالفعل');
+
+  if (id) {
+    const idx = users.findIndex(u => u.id === parseInt(id));
+    if (idx === -1) return;
+    users[idx] = { ...users[idx], username, password, fullName, role };
+    saveUsers(users);
+  } else {
+    const newId = Math.max(...users.map(u => u.id), 0) + 1;
+    users.push({ id: newId, username, password, fullName, role });
+    saveUsers(users);
+  }
+
+  renderUsersTable();
+  cancelEditUser();
+}
+
+function editUser(id) {
+  const user = getUsers().find(u => u.id === id);
+  if (!user) return;
+
+  document.getElementById('editUserId').value = id;
+  document.getElementById('userUsername').value = user.username;
+  document.getElementById('userPassword').value = user.password;
+  document.getElementById('userFullName').value = user.fullName;
+  document.getElementById('userRole').value = user.role;
+
+  document.getElementById('userFormTitle').innerHTML = '<i class="fas fa-user-edit"></i> تعديل المستخدم';
+  document.getElementById('saveUserBtn').innerHTML = '<i class="fas fa-save"></i> حفظ التعديل';
+  document.getElementById('cancelEditBtn').classList.add('show');
+}
+
+function cancelEditUser() {
+  document.getElementById('editUserId').value = '';
+  document.getElementById('userUsername').value = '';
+  document.getElementById('userPassword').value = '';
+  document.getElementById('userFullName').value = '';
+  document.getElementById('userRole').value = 'admin';
+
+  document.getElementById('userFormTitle').innerHTML = '<i class="fas fa-user-plus"></i> إضافة مستخدم جديد';
+  document.getElementById('saveUserBtn').innerHTML = '<i class="fas fa-plus"></i> إضافة';
+  document.getElementById('cancelEditBtn').classList.remove('show');
+}
+
+function deleteUser(id) {
+  if (id === 1) {
+    return alert('⛔ لا يمكن حذف المدير الرئيسي');
+  }
+  const user = getUsers().find(u => u.id === id);
+  if (!user) return;
+  if (!confirm(`حذف المستخدم "${user.fullName}"؟`)) return;
+
+  const users = getUsers().filter(u => u.id !== id);
+  saveUsers(users);
+  renderUsersTable();
+}
+</script>
+</body>
+</html>
