@@ -1,7 +1,8 @@
-// ========== إعدادات Firebase (Firestore) ==========
+// ========== إعدادات Firebase ==========
 const firebaseConfig = {
   apiKey: "AIzaSyBQw74Em4Gcqrd3n9SCEKqEV6yuXA2Sgmg",
   authDomain: "sukoon2026-e0430.firebaseapp.com",
+  databaseURL: "https://sukoon2026-e0430-default-rtdb.firebaseio.com",
   projectId: "sukoon2026-e0430",
   storageBucket: "sukoon2026-e0430.firebasestorage.app",
   messagingSenderId: "128613817411",
@@ -11,7 +12,7 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-const db = firebase.firestore(); // Firestore
+const db = firebase.firestore();
 
 // ========== الإعدادات ==========
 const START_HOUR = 17;
@@ -158,13 +159,12 @@ function fetchBookingsFromFirestore(callback) {
 }
 
 function saveBooking(b) {
-  // نستخدم id كمعرف مستند
   db.collection('bookings').doc(String(b.id)).set(b)
     .then(() => {
-      console.log('تم حفظ الحجز بنجاح');
+      console.log('✅ تم حفظ الحجز بنجاح في Firestore');
     })
     .catch((error) => {
-      console.error('خطأ في حفظ الحجز:', error);
+      console.error('❌ خطأ في حفظ الحجز:', error);
       showToast('حدث خطأ في حفظ الحجز، يرجى المحاولة لاحقاً');
     });
 }
@@ -185,7 +185,7 @@ function isTimeBooked(startH, hours) {
   return bookings.some(b => startH < b.endHour && endH > b.startHour);
 }
 
-// ========== توليد أوقات البدء (مع شطب الأوقات المحجوزة) ==========
+// ========== توليد أوقات البدء ==========
 function populateStartTimes() {
   const sel = $('startTime');
   const currentValue = sel.value;
