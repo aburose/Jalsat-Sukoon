@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جلسات سكون الشاطئية | تجربة استرخاء رومانسية على شاطئ البحر الأحمر</title>
+    
+    <!-- خطوط جوجل العربية (Cairo المعتمد) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- مكتبة Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        display: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            500: '#334e68',
+                            800: '#102a43',
+                            900: '#0b192c',
+                            950: '#040d16',
+                        },
+                        snow: {
+                            50: '#ffffff',
+                            100: '#f8fafc',
+                            200: '#f1f5f9',
+                        }
+                    },
+                    boxShadow: {
+                        'glow-navy': '0 0 25px rgba(11, 25, 44, 0.15)',
+                        'snow-card': '0 10px 30px rgba(11, 25, 44, 0.06)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc; /* أبيض ثلجي ناعم */
+            color: #0b192c;
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* خلفية متدرجة بيضاء ثلجية مع لمسات كحلي داكن هادئة */
+        .snow-navy-bg {
+            background: radial-gradient(circle at 10% 10%, rgba(217, 226, 236, 0.4) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 90%, rgba(16, 42, 67, 0.08) 0%, transparent 45%),
+                        linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f0f4f8 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(217, 226, 236, 0.8);
+            box-shadow: 0 10px 30px rgba(11, 25, 44, 0.04);
+        }
+
+        .glass-card-active {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 244, 248, 0.95) 100%);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(51, 78, 104, 0.3);
+            box-shadow: 0 15px 35px rgba(11, 25, 44, 0.1);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: sepia(100%) saturate(500%) hue-rotate(180deg);
+            cursor: pointer;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f4f8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bcccbe;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #102a43;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-float {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="snow-navy-bg min-h-screen flex flex-col selection:bg-navy-100 selection:text-navy-900">
+
+    <!-- ==================== حاوية الإشعارات العائمة ==================== -->
+    <div id="toast-container" class="fixed top-5 left-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- ==================== شريط التنقل العلوي (Header) ==================== -->
+    <header class="sticky top-0 z-40 glass-card border-b border-navy-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- الشعار -->
+            <a href="#" onclick="switchView('client')" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-navy-900 to-navy-950 flex items-center justify-center text-white font-black text-2xl shadow-glow-navy group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+                <div>
+                    <h1 class="font-display font-extrabold text-xl sm:text-2xl bg-gradient-to-l from-navy-950 via-navy-900 to-navy-500 bg-clip-text text-transparent">
+                        سُكّون
+                    </h1>
+                    <p class="text-[11px] text-slate-500 hidden sm:block">جلسات سكون الشاطئية - البحر الأحمر</p>
+                </div>
+            </a>
+
+            <!-- روابط التنقل السريع -->
+            <nav id="client-nav-links" class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+                <a href="#sessions-section" class="hover:text-navy-900 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-umbrella-beach text-navy-800 text-xs"></i>الجلسات والباقات</a>
+                <a href="#celebration-section" class="hover:text-navy-900 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-cake-candles text-navy-800 text-xs"></i>باكيج الاحتفالات</a>
+                <a href="#booking-section" class="hover:text-navy-900 transition-colors flex items-center gap-1.5"><i class="fa-regular fa-calendar-check text-navy-800 text-xs"></i>احجز الآن</a>
+                <a href="#hours-footer" class="hover:text-navy-900 transition-colors flex items-center gap-1.5"><i class="fa-regular fa-clock text-navy-800 text-xs"></i>أوقات العمل</a>
+            </nav>
+
+            <!-- أزرار الإدارة والعودة -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="btn-back-to-site" onclick="switchView('client')" class="hidden px-4 py-2.5 rounded-xl bg-navy-50 hover:bg-navy-100 text-navy-900 border border-navy-200 text-sm font-semibold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-house-chimney text-xs"></i>
+                    <span>صفحة الحجز</span>
+                </button>
+
+                <button id="btn-admin-entry" onclick="handleAdminButtonClick()" class="px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-950 text-white text-sm font-semibold transition-all flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-user-shield text-xs"></i>
+                    <span id="admin-btn-text">لوحة الإدارة</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================================================
+         الواجهة الأولى: صفحة العملاء والحجز (Client View)
+    ========================================================================================= -->
+    <main id="client-view" class="flex-grow">
+        
+        <!-- قسم الواجهة الرئيسية (Hero Section) -->
+        <section class="relative overflow-hidden py-14 sm:py-20 lg:py-24 border-b border-navy-100/60">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80" 
+                     onerror="this.src='https://placehold.co/1920x800/f0f4f8/102a43?text=Sukoon+Beach'"
+                     alt="شاطئ البحر الأحمر ليلاً" 
+                     class="w-full h-full object-cover opacity-15 scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-50 via-white/80 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7 text-center lg:text-right space-y-6">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-navy-50 border border-navy-200 text-navy-900 text-xs sm:text-sm font-medium">
+                            <i class="fa-solid fa-wand-magic-sparkles text-navy-800"></i>
+                            <span>خصوصية تامة • إطلالة ساحرة على البحر الأحمر</span>
+                        </div>
+                        
+                        <h2 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-slate-900">
+                            ليالٍ هادئة على أنغام الموج في 
+                            <span class="bg-gradient-to-l from-navy-950 via-navy-900 to-navy-500 bg-clip-text text-transparent">جلسات سكون</span>
+                        </h2>
+                        
+                        <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            استمتع بأجواء شاطئية ليلية دافئة مصممة لخصوصيتك التامة مع تيزرات مرتفعة، إضاءات هادئة، وتجربة ضيافة متكاملة تناسب أمسياتك الخاصة ومناسباتك.
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#booking-section" class="px-7 py-3.5 rounded-2xl bg-navy-900 hover:bg-navy-950 text-white font-bold text-base shadow-glow-navy transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <i class="fa-regular fa-calendar-check text-lg"></i>
+                                <span>احجز جلستك الآن</span>
+                            </a>
+                            <a href="#sessions-section" class="px-7 py-3.5 rounded-2xl glass-card hover:bg-navy-50 text-slate-800 font-semibold text-base transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-gem text-navy-800"></i>
+                                <span>استكشف الباقات والأسعار</span>
+                            </a>
+                        </div>
+
+                        <!-- شارات سريعة -->
+                        <div class="grid grid-cols-3 gap-3 pt-4 max-w-lg mx-auto lg:mx-0">
+                            <div class="glass-card rounded-2xl p-3 text-center">
+                                <div class="text-navy-900 font-bold text-lg flex items-center justify-center gap-1"><i class="fa-solid fa-shield-halved text-xs text-navy-800"></i> 100%</div>
+                                <div class="text-xs text-slate-500">خصوصية بتيزار مرتفع</div>
+                            </div>
+                            <div class="glass-card rounded-2xl p-3 text-center">
+                                <div class="text-navy-900 font-bold text-lg flex items-center justify-center gap-1"><i class="fa-solid fa-umbrella-beach text-xs text-navy-800"></i> 101 & 102</div>
+                                <div class="text-xs text-slate-500">جلسات شاطئية فاخرة</div>
+                            </div>
+                            <div class="glass-card rounded-2xl p-3 text-center">
+                                <div class="text-navy-900 font-bold text-lg flex items-center justify-center gap-1"><i class="fa-solid fa-circle-dollar-to-slot text-xs text-navy-800"></i> 50 ر.س</div>
+                                <div class="text-xs text-slate-500">عربون تأكيد الحجز</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- بطاقة بصرية -->
+                    <div class="lg:col-span-5">
+                        <div class="relative rounded-3xl overflow-hidden border border-navy-200 shadow-2xl animate-float">
+                            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80" 
+                                 onerror="this.src='https://placehold.co/800x600/f0f4f8/102a43?text=Lounge'"
+                                 alt="جلسة شاطئية" 
+                                 class="w-full h-80 sm:h-96 object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-5 right-5 left-5 glass-card rounded-2xl p-4 border border-navy-200/60 shadow-lg">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-xs text-navy-900 font-bold flex items-center gap-1"><i class="fa-solid fa-moon"></i> أجواء المساء والفجر</span>
+                                        <h3 class="text-slate-900 font-bold text-base">من 5:00 مساءً وحتى 6:00 صباحاً</h3>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-900">
+                                        <i class="fa-solid fa-fire-flame-curved"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== قسم الجلسات والباقات ==================== -->
+        <section id="sessions-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-navy-800 font-semibold text-sm tracking-wide flex items-center justify-center gap-1.5"><i class="fa-solid fa-compass"></i> اختر تجربتك المثالية</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900">الجلسات والباقات المتوفرة</h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    تتوفر لدينا جلستان رئيسيتان على الشاطئ (<strong class="text-navy-900">جلسة 101</strong> و <strong class="text-navy-900">جلسة 102</strong>), ويمكنك اختيار الباقة الفضية أو الباقة الذهبية.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-stretch">
+                <!-- الباقة الفضية -->
+                <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden border border-navy-100 hover:border-navy-300 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3.5 py-1 rounded-full bg-navy-50 border border-navy-200 text-navy-900 text-xs font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-medal text-navy-800"></i>
+                                الباقة الفضية (جلسة 100)
+                            </span>
+                            <span class="px-3 py-1 rounded-xl bg-navy-100/60 text-navy-900 text-xs font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-user-group text-[11px]"></i> شخصين فقط (2)
+                            </span>
+                        </div>
+
+                        <h3 class="font-display text-2xl font-bold text-slate-900 mb-2">الباقة الفضية الهادئة</h3>
+                        <p class="text-slate-600 text-sm mb-6">مثالية للجلسات الثنائية الهادئة بخصوصية تامة على صوت أمواج البحر.</p>
+
+                        <div class="space-y-3 mb-7">
+                            <div class="flex items-center gap-3 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span>خصوصية تامة بتيزار مرتفع</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-chess-board"></i></span>
+                                <span>لعبة جاكارو متكاملة</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-bottle-droplet"></i></span>
+                                <span>ضيافة مياه باردة</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high"></i></span>
+                                <span>سماعات بلوتوث عالية النقاء</span>
+                            </div>
+                        </div>
+
+                        <!-- جدول الأسعار -->
+                        <div class="bg-white rounded-2xl p-4 border border-navy-100 mb-6 shadow-sm">
+                            <h4 class="text-xs font-bold text-navy-900 mb-3 flex items-center gap-1.5">
+                                <i class="fa-solid fa-tag"></i> قائمة أسعار الباقة الفضية:
+                            </h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-center">
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">ساعة واحدة</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">60 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">ساعتان</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">120 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">3 ساعات</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">180 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">4 ساعات</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">240 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-navy-50 border border-navy-200 relative">
+                                    <span class="absolute -top-2 left-2 bg-navy-900 text-white text-[10px] font-extrabold px-1.5 rounded">خصم 🤩</span>
+                                    <div class="text-xs text-navy-900">5 ساعات</div>
+                                    <div class="font-bold text-navy-950 text-sm mt-0.5">275 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-navy-50 border border-navy-200 relative">
+                                    <span class="absolute -top-2 left-2 bg-navy-900 text-white text-[10px] font-extrabold px-1.5 rounded">عرض 🤩</span>
+                                    <div class="text-xs text-navy-900">6 ساعات</div>
+                                    <div class="font-bold text-navy-950 text-sm mt-0.5">330 ريال</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="selectPackageAndScroll('silver')" class="w-full py-3.5 rounded-2xl bg-navy-50 hover:bg-navy-100 text-navy-900 font-bold text-sm border border-navy-200 transition-all flex items-center justify-center gap-2">
+                        <span>اختر الباقة الفضية للحجز</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                </div>
+
+                <!-- الباقة الذهبية VIP -->
+                <div class="glass-card-active rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-glow-navy">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="px-3.5 py-1 rounded-full bg-navy-900 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-crown text-navy-200"></i>
+                                الباقة الذهبية VIP (جلسة 102)
+                            </span>
+                            <span class="px-3 py-1 rounded-xl bg-navy-100 text-navy-900 text-xs font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-user-group text-[11px]"></i> ( 1 - 10 ) أفراد
+                            </span>
+                        </div>
+
+                        <h3 class="font-display text-2xl font-bold text-slate-900 mb-2">الباقة الذهبية الفاخرة (VIP)</h3>
+                        <p class="text-slate-600 text-sm mb-6">تجربة متكاملة تجمع بين السينما الشاطئية وركن القهوة والتصوير بخصوصية مطلقة.</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-7">
+                            <div class="flex items-center gap-2.5 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-heart"></i></span>
+                                <span>خصوصية تامة بتيزار مرتفع</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-mug-hot"></i></span>
+                                <span>ركن قهوة متكامل</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-projector"></i></span>
+                                <span>بروجكتر عرض سينمائي</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-camera-retro"></i></span>
+                                <span>مرآة أنيقة للتصوير</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-chess-board"></i></span>
+                                <span>لعبة جاكارو + ماء</span>
+                            </div>
+                            <div class="flex items-center gap-2.5 text-slate-700 text-sm">
+                                <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-volume-high"></i></span>
+                                <span>سماعات محيطية</span>
+                            </div>
+                        </div>
+
+                        <!-- جدول الأسعار -->
+                        <div class="bg-white rounded-2xl p-4 border border-navy-200 mb-6 shadow-sm">
+                            <h4 class="text-xs font-bold text-navy-900 mb-3 flex items-center gap-1.5">
+                                <i class="fa-solid fa-tag"></i> قائمة أسعار الباقة الذهبية VIP:
+                            </h4>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-center">
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">ساعة واحدة</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">80 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">ساعتان</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">160 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">3 ساعات</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">240 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                                    <div class="text-xs text-slate-500">4 ساعات</div>
+                                    <div class="font-bold text-slate-900 text-sm mt-0.5">320 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-navy-50 border border-navy-300 relative">
+                                    <span class="absolute -top-2 left-2 bg-navy-900 text-white text-[10px] font-extrabold px-1.5 rounded">خصم 😍</span>
+                                    <div class="text-xs text-navy-900">5 ساعات</div>
+                                    <div class="font-bold text-navy-950 text-sm mt-0.5">350 ريال</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-navy-50 border border-navy-300 relative">
+                                    <span class="absolute -top-2 left-2 bg-navy-900 text-white text-[10px] font-extrabold px-1.5 rounded">عرض 🤩</span>
+                                    <div class="text-xs text-navy-900">6 ساعات</div>
+                                    <div class="font-bold text-navy-950 text-sm mt-0.5">400 ريال</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="selectPackageAndScroll('gold')" class="w-full py-3.5 rounded-2xl bg-navy-900 hover:bg-navy-950 text-white font-extrabold text-sm shadow-glow-navy transition-all flex items-center justify-center gap-2">
+                        <span>اختر الباقة الذهبية VIP للحجز</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== قسم باكيج الاحتفالات ==================== -->
+        <section id="celebration-section" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-navy-200 relative overflow-hidden">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5">
+                        <div class="relative rounded-2xl overflow-hidden border border-navy-200 h-64 sm:h-80 shadow-md">
+                            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80" 
+                                 onerror="this.src='https://placehold.co/800x600/f0f4f8/102a43?text=Celebration'"
+                                 alt="باكيج الاحتفالات" 
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent"></div>
+                            <div class="absolute top-4 right-4 bg-navy-900 text-white font-extrabold px-4 py-1.5 rounded-full text-sm shadow-lg">
+                                +300 ريال فقط
+                            </div>
+                            <div class="absolute bottom-4 right-4 left-4 text-white">
+                                <p class="text-xs text-navy-100 font-semibold">إضافة اختيارية لمناسباتكم الخاصة</p>
+                                <h4 class="font-bold text-lg">تنسيق رومانسي متكامل على الشاطئ 🌊</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 flex items-center gap-2">
+                                <span>باكيج الاحتفالات من جلسات سكون</span>
+                                <span class="text-2xl">🌊</span>
+                            </h3>
+                            <span class="px-3.5 py-1.5 rounded-xl bg-navy-100 border border-navy-200 text-navy-900 font-bold text-sm">
+                                300 ريال (غير شامل سعر الجلسة)
+                            </span>
+                        </div>
+
+                        <p class="text-slate-600 text-sm">احتفل بأعياد الميلاد، ذكرى الزواج، أو التخرج بأجواء ساحرة جاهزة فور وصولك:</p>
+
+                        <div class="grid sm:grid-cols-2 gap-3 text-sm">
+                            <div class="flex items-start gap-2.5 bg-white p-3 rounded-xl border border-navy-100 shadow-sm">
+                                <span class="text-lg">🎂</span>
+                                <span class="text-slate-700">كيكة متوسطة الحجم فاخرة من <strong>(منش)</strong></span>
+                            </div>
+                            <div class="flex items-start gap-2.5 bg-white p-3 rounded-xl border border-navy-100 shadow-sm">
+                                <span class="text-lg">🪷</span>
+                                <span class="text-slate-700">بوكيه ورد مكون من <strong>10 أغصان</strong> مع كرت تهنئة</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 bg-white p-3 rounded-xl border border-navy-100 shadow-sm">
+                                <span class="text-lg">🥂</span>
+                                <span class="text-slate-700">عصير فاخر مناسب للاحتفال</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 bg-white p-3 rounded-xl border border-navy-100 shadow-sm">
+                                <span class="text-lg">🕯️</span>
+                                <span class="text-slate-700">شموع هادئة وشرارية لتزيين الاحتفال</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 bg-white p-3 rounded-xl border border-navy-100 shadow-sm">
+                                <span class="text-lg">🍽️</span>
+                                <span class="text-slate-700">تنسيق كامل للطاولة يشمل الصحون ومستلزمات التقديم</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 bg-navy-50 p-3 rounded-xl border border-navy-200">
+                                <span class="text-lg">✨</span>
+                                <span class="text-navy-950">مدخل مزين بالشموع والورد <strong>(حصري للباقة الذهبية VIP)</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 rounded-2xl bg-navy-50/80 border border-navy-200 flex items-center gap-3 text-navy-950 text-xs sm:text-sm font-semibold">
+                            <i class="fa-solid fa-circle-exclamation text-navy-800 text-lg shrink-0"></i>
+                            <span>تنبيه: البكج غير قابل للإضافات والتعديل نهائياً — متاح للباقة الفضية أو الذهبية عند الحجز.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== قسم نموذج الحجز التفاعلي ==================== -->
+        <section id="booking-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                <span class="text-navy-800 font-semibold text-sm flex items-center justify-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> خطوات بسيطة تفصلك عن الاسترخاء</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900">احجز جلستك الشاطئية الآن</h2>
+                <p class="text-slate-600 text-sm">يتم التحقق الفوري من توفر الجلسة في الوقت المطلوب وحساب التكلفة الإجمالية تلقائياً.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- نموذج الإدخال -->
+                <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-6 border border-navy-200 shadow-lg">
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center text-xs"><i class="fa-solid fa-umbrella-beach"></i></span>
+                            <span>1. اختر رقم الجلسة الشاطئية:</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="sessionNumber" value="101" checked onchange="updateBookingCalculations()" class="peer sr-only">
+                                <div class="p-4 rounded-2xl bg-white border-2 border-navy-100 peer-checked:border-navy-900 peer-checked:bg-navy-50/50 transition-all text-center shadow-sm">
+                                    <div class="text-navy-800 text-xl mb-1"><i class="fa-solid fa-water"></i></div>
+                                    <div class="font-display font-bold text-slate-900 text-lg">جلسة 101</div>
+                                    <div class="text-xs text-slate-500">إطلالة مباشرة هادئة</div>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="sessionNumber" value="102" onchange="updateBookingCalculations()" class="peer sr-only">
+                                <div class="p-4 rounded-2xl bg-white border-2 border-navy-100 peer-checked:border-navy-900 peer-checked:bg-navy-50/50 transition-all text-center shadow-sm">
+                                    <div class="text-navy-800 text-xl mb-1"><i class="fa-solid fa-moon"></i></div>
+                                    <div class="font-display font-bold text-slate-900 text-lg">جلسة 102</div>
+                                    <div class="text-xs text-slate-500">إطلالة بانورامية مميزة</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center text-xs"><i class="fa-solid fa-gem"></i></span>
+                            <span>2. اختر نوع الباقة:</span>
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="packageType" value="silver" checked onchange="handlePackageChange()" class="peer sr-only">
+                                <div class="p-4 rounded-2xl bg-white border-2 border-navy-100 peer-checked:border-navy-900 peer-checked:bg-navy-50/50 transition-all shadow-sm">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-bold text-slate-900">الباقة الفضية</span>
+                                        <span class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-600">2 أفراد فقط</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500">جاكارو + ماء + سماعات (تبدأ من 60 ر.س/ساعة)</p>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="packageType" value="gold" onchange="handlePackageChange()" class="peer sr-only">
+                                <div class="p-4 rounded-2xl bg-white border-2 border-navy-100 peer-checked:border-navy-900 peer-checked:bg-navy-50/50 transition-all shadow-sm">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-bold text-slate-900">الباقة الذهبية VIP</span>
+                                        <span class="text-xs px-2 py-0.5 rounded bg-navy-100 text-navy-900">( 1 - 10 ) أفراد</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500">قهوة + بروجكتر + مرآة + جاكارو (من 80 ر.س/ساعة)</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div>
+                            <label for="booking-date" class="block text-xs font-bold text-slate-700 mb-2 flex items-center gap-1">
+                                <i class="fa-regular fa-calendar-days text-navy-800"></i> تاريخ الحجز (أقصى حد أسبوعين):
+                            </label>
+                            <input type="date" id="booking-date" required onchange="updateBookingCalculations()"
+                                   class="w-full px-3.5 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                        </div>
+
+                        <div>
+                            <label for="start-time" class="block text-xs font-bold text-slate-700 mb-2 flex items-center gap-1">
+                                <i class="fa-regular fa-clock text-navy-800"></i> وقت بداية الحجز:
+                            </label>
+                            <select id="start-time" required onchange="updateBookingCalculations()"
+                                    class="w-full px-3.5 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="duration-hours" class="block text-xs font-bold text-slate-700 mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-hourglass-half text-navy-800"></i> عدد الساعات:
+                            </label>
+                            <select id="duration-hours" required onchange="updateBookingCalculations()"
+                                    class="w-full px-3.5 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                                <option value="1">ساعة واحدة (1)</option>
+                                <option value="2" selected>ساعتان (2)</option>
+                                <option value="3">3 ساعات</option>
+                                <option value="4">4 ساعات</option>
+                                <option value="5">5 ساعات (عرض خصم 🤩)</option>
+                                <option value="6">6 ساعات (عرض خاص 🤩)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4 items-center">
+                        <div>
+                            <label for="guests-count" class="block text-xs font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-navy-900 text-white shadow-sm text-xs font-bold">
+                                    <i class="fa-solid fa-users"></i>
+                                </span>
+                                عدد الأفراد المشاركين:
+                            </label>
+                            <div class="relative flex items-center bg-white rounded-xl border border-navy-200 overflow-hidden focus-within:border-navy-900 shadow-sm">
+                                <button type="button" onclick="adjustGuests(-1)" class="px-3 py-3 text-navy-900 hover:bg-navy-50 transition-colors disabled:opacity-40" id="decrease-guests-btn">
+                                    <i class="fa-solid fa-minus text-xs"></i>
+                                </button>
+                                <input type="number" id="guests-count" value="2" min="1" max="10" readonly
+                                       class="w-full text-center bg-transparent text-slate-900 font-bold text-sm focus:outline-none py-3">
+                                <button type="button" onclick="adjustGuests(1)" class="px-3 py-3 text-navy-900 hover:bg-navy-50 transition-colors disabled:opacity-40" id="increase-guests-btn">
+                                    <i class="fa-solid fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                            <span id="guests-hint" class="block text-[11px] text-navy-800 mt-1.5">
+                                * الباقة الذهبية تتيح اختيار عدد الأفراد (من 1 إلى 10 أشخاص).
+                            </span>
+                        </div>
+
+                        <div class="pt-1">
+                            <label class="flex items-start gap-3 p-3.5 rounded-2xl bg-white border border-navy-200 cursor-pointer hover:bg-navy-50/50 transition-all shadow-sm">
+                                <input type="checkbox" id="celebration-addon" onchange="updateBookingCalculations()"
+                                       class="mt-1 w-5 h-5 rounded accent-navy-900 cursor-pointer">
+                                <div>
+                                    <div class="font-bold text-slate-900 text-sm flex items-center gap-1.5"><i class="fa-solid fa-cake-candles text-navy-800"></i> إضافة باكيج الاحتفالات 🌊 (+300 ر.س)</div>
+                                    <div class="text-[11px] text-slate-500">كيكة منش + بوكيه ورد + عصير + شموع وتنسيق</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="availability-alert-box" class="hidden rounded-2xl p-4 border transition-all"></div>
+
+                    <div class="pt-2 border-t border-navy-100">
+                        <h4 class="text-sm font-bold text-slate-900 mb-3 flex items-center gap-1.5">
+                            <i class="fa-regular fa-id-card text-navy-800"></i> بيانات صاحب الحجز:
+                        </h4>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="customer-name" class="block text-xs text-slate-600 mb-1.5">الاسم الكامل *</label>
+                                <input type="text" id="customer-name" required placeholder="مثال: محمد عبدالله الحربي"
+                                       class="w-full px-4 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                            </div>
+                            <div>
+                                <label for="customer-phone" class="block text-xs text-slate-600 mb-1.5">رقم الجوال (واتساب) *</label>
+                                <input type="tel" id="customer-phone" required placeholder="05XXXXXXXX" pattern="^(05|5|\+9665)[0-9]{8}$"
+                                       class="w-full px-4 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm text-left dir-ltr focus:outline-none focus:border-navy-900 shadow-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-booking-btn"
+                            class="w-full py-4 rounded-2xl bg-navy-900 hover:bg-navy-950 text-white font-extrabold text-base shadow-glow-navy transition-all flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-circle-check text-lg"></i>
+                        <span>تأكيد طلب الحجز وعرض بيانات التحويل</span>
+                    </button>
+                </form>
+
+                <!-- بطاقة الملخص الفوري -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-card-active rounded-3xl p-6 sm:p-7 sticky top-24 border border-navy-300 shadow-xl">
+                        <h3 class="font-display text-xl font-bold text-slate-900 mb-5 flex items-center justify-between border-b border-navy-100 pb-3">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-receipt text-navy-800"></i> ملخص الحجز الفوري</span>
+                            <span id="summary-status-badge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
+                                متاح للحجز
+                            </span>
+                        </h3>
+
+                        <div class="space-y-3.5 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500">الجلسة المختارة:</span>
+                                <span id="sum-session" class="font-bold text-slate-900">جلسة 101</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500">نوع الباقة:</span>
+                                <span id="sum-package" class="font-bold text-navy-900">الباقة الفضية</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500">التاريخ:</span>
+                                <span id="sum-date" class="font-semibold text-slate-900">-</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-navy-50/60 p-3 rounded-xl border border-navy-100">
+                                <span class="text-slate-700">فترة الحجز:</span>
+                                <span id="sum-time-range" class="font-bold text-navy-950">5:00 م — 7:00 م (ساعتان)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500">عدد الأفراد:</span>
+                                <span id="sum-guests" class="font-semibold text-slate-900">2 أشخاص</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500">سعر الجلسة:</span>
+                                <span id="sum-base-price" class="font-bold text-slate-900">120 ريال</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-500">باكيج الاحتفالات:</span>
+                                <span id="sum-addon-price" class="font-semibold text-slate-400">غير مضاف (0 ريال)</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-4 border-t border-navy-100 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-base font-bold text-slate-900">الإجمالي الكلي:</span>
+                                <span id="sum-total-price" class="font-display text-2xl font-extrabold text-navy-950">120 ريال</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-navy-100/70 border border-navy-200 flex items-center justify-between text-xs">
+                                <span class="text-navy-950 font-semibold flex items-center gap-1"><i class="fa-solid fa-building-columns"></i> العربون المطلوب لتأكيد الحجز:</span>
+                                <span class="font-extrabold text-navy-950 text-sm">50 ريال</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">
+                                * يُدفع العربون (50 ريال) عبر التحويل البنكي لتأكيد حجزك، ويُخصم من إجمالي المبلغ عند الوصول.
+                            </p>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-navy-100">
+                            <h4 class="text-xs font-bold text-slate-700 mb-2.5 flex items-center gap-1.5">
+                                <i class="fa-solid fa-calendar-day text-navy-800"></i>
+                                <span>حالة الجلسات في التاريخ المختار:</span>
+                            </h4>
+                            <div id="daily-schedule-preview" class="space-y-2 text-xs max-h-40 overflow-y-auto pr-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== تذييل الصفحة وأوقات العمل ==================== -->
+        <footer id="hours-footer" class="mt-12 bg-white border-t border-navy-100 pt-14 pb-8 shadow-inner">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="glass-card rounded-3xl p-6 sm:p-8 mb-12 border border-navy-200">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-navy-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-navy-100 border border-navy-200 flex items-center justify-center text-navy-900 text-xl">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900">أوقات العمل الرسمية</h3>
+                                <p class="text-xs sm:text-sm text-slate-500">نستقبلكم طوال أيام الأسبوع في أجواء البحر الأحمر الساحرة</p>
+                            </div>
+                        </div>
+                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-50 text-navy-900 text-xs font-bold border border-navy-200 self-start md:self-auto">
+                            <i class="fa-solid fa-star-and-crescent"></i>
+                            <span>ساعات عمل مسائية وفجرية ممتدة</span>
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+                        <div class="p-3.5 rounded-2xl bg-white border border-navy-100 text-center hover:border-navy-300 transition-all shadow-sm">
+                            <div class="text-navy-800 text-sm mb-1"><i class="fa-solid fa-moon"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">السبت</div>
+                            <div class="text-xs text-navy-900 font-semibold mt-1">5 م - 3 ص</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white border border-navy-100 text-center hover:border-navy-300 transition-all shadow-sm">
+                            <div class="text-navy-800 text-sm mb-1"><i class="fa-solid fa-moon"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">الأحد</div>
+                            <div class="text-xs text-navy-900 font-semibold mt-1">5 م - 3 ص</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white border border-navy-100 text-center hover:border-navy-300 transition-all shadow-sm">
+                            <div class="text-navy-800 text-sm mb-1"><i class="fa-solid fa-moon"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">الاثنين</div>
+                            <div class="text-xs text-navy-900 font-semibold mt-1">5 م - 3 ص</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white border border-navy-100 text-center hover:border-navy-300 transition-all shadow-sm">
+                            <div class="text-navy-800 text-sm mb-1"><i class="fa-solid fa-moon"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">الثلاثاء</div>
+                            <div class="text-xs text-navy-900 font-semibold mt-1">5 م - 3 ص</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white border border-navy-100 text-center hover:border-navy-300 transition-all shadow-sm">
+                            <div class="text-navy-800 text-sm mb-1"><i class="fa-solid fa-moon"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">الأربعاء</div>
+                            <div class="text-xs text-navy-900 font-semibold mt-1">5 م - 3 ص</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-navy-50 border border-navy-300 text-center hover:border-navy-400 transition-all shadow-sm">
+                            <div class="text-navy-900 text-sm mb-1"><i class="fa-solid fa-sparkles"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">الخميس</div>
+                            <div class="text-xs text-navy-950 font-bold mt-1">5 م - 6 ص</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-navy-50 border border-navy-300 text-center hover:border-navy-400 transition-all shadow-sm col-span-2 sm:col-span-1">
+                            <div class="text-navy-900 text-sm mb-1"><i class="fa-solid fa-sparkles"></i></div>
+                            <div class="font-bold text-slate-900 text-sm">الجمعة</div>
+                            <div class="text-xs text-navy-950 font-bold mt-1">8 م - 6 ص</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-moon text-navy-800"></i>
+                        <span class="font-bold text-slate-800">جلسات سكون الشاطئية</span>
+                        <span>— شاطئ البحر الأحمر</span>
+                    </div>
+                    <div>
+                        جميع الحقوق محفوظة © <span id="current-year">2026</span> جلسات سكون الشاطئية
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- ==================== نافذة تأكيد الحجز والتحويل البنكي ==================== -->
+    <div id="confirmation-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/60 backdrop-blur-md overflow-y-auto">
+        <div class="glass-card-active rounded-3xl max-w-xl w-full p-6 sm:p-8 relative my-8 border border-navy-300 shadow-2xl">
+            <button onclick="closeConfirmationModal()" class="absolute top-5 left-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-600 text-3xl flex items-center justify-center mx-auto mb-3 shadow-sm">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 class="font-display text-2xl font-extrabold text-slate-900">تم تسجيل طلب حجزك بنجاح!</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">رقم المرجع: <span id="conf-booking-id" class="font-mono font-bold text-navy-900">#SK-1001</span></p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-navy-100 space-y-2 text-xs sm:text-sm mb-5 shadow-sm">
+                <div class="flex justify-between">
+                    <span class="text-slate-500">العميل:</span>
+                    <span id="conf-name" class="font-bold text-slate-900"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">الجلسة والباقة:</span>
+                    <span id="conf-session-pkg" class="font-bold text-navy-900"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">التاريخ والوقت:</span>
+                    <span id="conf-datetime" class="font-bold text-navy-950"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">المبلغ الإجمالي:</span>
+                    <span id="conf-total" class="font-extrabold text-slate-900"></span>
+                </div>
+                <div class="flex justify-between pt-2 border-t border-navy-100">
+                    <span class="text-navy-900 font-bold">قيمة العربون لتأكيد الحجز:</span>
+                    <span class="font-extrabold text-navy-950 text-base">50 ريال</span>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-navy-50 to-white rounded-2xl p-4 sm:p-5 border border-navy-200 space-y-3 mb-5 shadow-sm">
+                <h4 class="font-bold text-navy-950 text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <span>بيانات التحويل البنكي لدفع العربون (50 ريال):</span>
+                </h4>
+
+                <div class="space-y-2.5 text-xs sm:text-sm">
+                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-navy-100">
+                        <div>
+                            <div class="text-[11px] text-slate-500">اسم صاحب الحساب / التحويل</div>
+                            <div class="font-bold text-slate-900">وائل سعيد الغامدي</div>
+                        </div>
+                        <button onclick="copyTextToClipboard('وائل سعيد الغامدي', 'اسم صاحب الحساب')" class="px-2.5 py-1.5 rounded-lg bg-navy-100 hover:bg-navy-200 text-navy-900 text-xs flex items-center gap-1 font-semibold">
+                            <i class="fa-regular fa-copy"></i> نسخ
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-navy-100">
+                        <div>
+                            <div class="text-[11px] text-slate-500">اسم البنك</div>
+                            <div class="font-bold text-navy-900">بنك الإنماء</div>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded bg-navy-100 text-navy-900 font-semibold">Alinma Bank</span>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-navy-100">
+                        <div class="overflow-hidden pl-2">
+                            <div class="text-[11px] text-slate-500">رقم الآيبان (IBAN)</div>
+                            <div class="font-mono font-bold text-navy-950 text-xs sm:text-sm truncate" dir="ltr">SA4105000068206125044000</div>
+                        </div>
+                        <button onclick="copyTextToClipboard('SA4105000068206125044000', 'رقم الآيبان')" class="shrink-0 px-2.5 py-1.5 rounded-lg bg-navy-900 hover:bg-navy-950 text-white text-xs flex items-center gap-1 font-semibold">
+                            <i class="fa-regular fa-copy"></i> نسخ
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-navy-100">
+                        <div>
+                            <div class="text-[11px] text-slate-500">رقم الحساب</div>
+                            <div class="font-mono font-bold text-slate-900" dir="ltr">68206125044000</div>
+                        </div>
+                        <button onclick="copyTextToClipboard('68206125044000', 'رقم الحساب')" class="px-2.5 py-1.5 rounded-lg bg-navy-100 hover:bg-navy-200 text-navy-900 text-xs flex items-center gap-1 font-semibold">
+                            <i class="fa-regular fa-copy"></i> نسخ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-navy-100/60 border border-navy-200 text-navy-950 text-xs leading-relaxed">
+                    <i class="fa-solid fa-circle-info ml-1 text-navy-800"></i>
+                    <strong>ملاحظة هامة:</strong> قيمة العربون لتأكيد الحجز <strong>50 ريال</strong> — بعد التحويل، أرسل لنا إشعار التحويل لتأكيد الحجز نهائياً.
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a id="whatsapp-receipt-btn" href="#" target="_blank" class="flex-1 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm text-center transition-all flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>إرسال إشعار التحويل عبر واتساب</span>
+                </a>
+                <button onclick="closeConfirmationModal()" class="py-3.5 px-5 rounded-2xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-sm transition-all">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== شاشة تسجيل دخول المسؤول ==================== -->
+    <section id="admin-login-view" class="hidden flex-grow flex items-center justify-center px-4 py-16">
+        <div class="glass-card-active rounded-3xl max-w-md w-full p-8 border border-navy-200 shadow-xl">
+            <div class="text-center mb-7">
+                <div class="w-16 h-16 rounded-2xl bg-navy-100 border border-navy-200 text-navy-900 text-2xl flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h2 class="font-display text-2xl font-extrabold text-slate-900">تسجيل دخول الإدارة</h2>
+                <p class="text-xs text-slate-500 mt-1">لوحة التحكم الخاصة بإدارة جلسات سكون الشاطئية</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-5">
+                <div>
+                    <label for="login-username" class="block text-xs font-bold text-slate-700 mb-2">اسم المستخدم</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 right-3.5 flex items-center text-slate-400"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" id="login-username" required placeholder="أدخل اسم المستخدم"
+                               class="w-full pr-10 pl-4 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="login-password" class="block text-xs font-bold text-slate-700 mb-2">كلمة المرور</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 right-3.5 flex items-center text-slate-400"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="login-password" required placeholder="••••••••"
+                               class="w-full pr-10 pl-4 py-3 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                    </div>
+                </div>
+
+                <div id="login-error-msg" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs text-center font-semibold">
+                    اسم المستخدم أو كلمة المرور غير صحيحة!
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-navy-900 hover:bg-navy-950 text-white font-extrabold text-sm shadow-glow-navy transition-all">
+                    دخول إلى لوحة التحكم
+                </button>
+            </form>
+
+            <div class="mt-6 pt-4 border-t border-navy-100 text-center">
+                <button onclick="switchView('client')" class="text-xs text-navy-800 hover:text-navy-950 underline font-semibold">
+                    العودة إلى صفحة الحجز الرئيسية
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== لوحة التحكم المتكاملة (Admin Dashboard) ==================== -->
+    <section id="admin-dashboard-view" class="hidden flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        <div class="glass-card rounded-3xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-navy-200 shadow-sm">
+            <div>
+                <div class="flex items-center gap-2 text-navy-800 text-xs font-bold mb-1">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>نظام الإدارة الفوري المتزامن</span>
+                </div>
+                <h2 class="font-display text-2xl font-extrabold text-slate-900">
+                    مرحباً، <span id="logged-admin-name" class="text-navy-900">admin</span>
+                </h2>
+                <p class="text-xs text-slate-500">إدارة حجوزات الشاطئ، تأكيد العربون، وإدارة حسابات المشرفين.</p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3">
+                <button onclick="openManualBookingModal()" class="px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-950 text-white font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>إضافة حجز يدوي</span>
+                </button>
+                <button onclick="handleAdminLogout()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>تسجيل الخروج</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="glass-card rounded-2xl p-5 border border-navy-100 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-500">إجمالي الحجوزات</span>
+                    <span class="w-8 h-8 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center"><i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+                <div id="stat-total-bookings" class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">0</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-emerald-100 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-500">الحجوزات المؤكدة</span>
+                    <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><i class="fa-solid fa-circle-check"></i></span>
+                </div>
+                <div id="stat-confirmed-bookings" class="font-display text-2xl sm:text-3xl font-extrabold text-emerald-600">0</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-amber-100 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-500">بانتظار العربون</span>
+                    <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center"><i class="fa-solid fa-hourglass-half"></i></span>
+                </div>
+                <div id="stat-pending-bookings" class="font-display text-2xl sm:text-3xl font-extrabold text-amber-600">0</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-indigo-100 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-500">الحجوزات المستقبلية</span>
+                    <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center"><i class="fa-solid fa-calendar-plus"></i></span>
+                </div>
+                <div id="stat-future-bookings" class="font-display text-2xl sm:text-3xl font-extrabold text-indigo-600">0</div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-navy-100 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-500">الإيرادات المتوقعة</span>
+                    <span class="w-8 h-8 rounded-lg bg-navy-100 text-navy-900 flex items-center justify-center"><i class="fa-solid fa-sack-dollar"></i></span>
+                </div>
+                <div id="stat-total-revenue" class="font-display text-2xl sm:text-3xl font-extrabold text-navy-950">0 ر.س</div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 border-b border-navy-100 pb-3">
+            <button id="tab-btn-bookings" onclick="switchDashboardTab('bookings')" class="px-5 py-2.5 rounded-xl bg-navy-900 text-white font-bold text-sm transition-all flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-list-check"></i>
+                <span>إدارة الحجوزات</span>
+            </button>
+            <button id="tab-btn-users" onclick="switchDashboardTab('users')" class="px-5 py-2.5 rounded-xl bg-white hover:bg-navy-50 text-slate-700 border border-navy-100 font-semibold text-sm transition-all flex items-center gap-2">
+                <i class="fa-solid fa-users-gear"></i>
+                <span>إدارة المستخدمين</span>
+            </button>
+        </div>
+
+        <div id="dashboard-tab-bookings" class="space-y-4">
+            <div class="glass-card rounded-2xl p-4 flex flex-col sm:flex-row gap-3 justify-between items-center border border-navy-200 shadow-sm">
+                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <select id="filter-session" onchange="renderDashboardBookings()" class="px-3.5 py-2 rounded-xl bg-white border border-navy-200 text-xs text-slate-800 focus:outline-none focus:border-navy-900 shadow-sm">
+                        <option value="all">جميع الجلسات (101 & 102)</option>
+                        <option value="101">جلسة 101 فقط</option>
+                        <option value="102">جلسة 102 فقط</option>
+                    </select>
+
+                    <select id="filter-package" onchange="renderDashboardBookings()" class="px-3.5 py-2 rounded-xl bg-white border border-navy-200 text-xs text-slate-800 focus:outline-none focus:border-navy-900 shadow-sm">
+                        <option value="all">جميع الباقات</option>
+                        <option value="silver">الباقة الفضية</option>
+                        <option value="gold">الباقة الذهبية VIP</option>
+                    </select>
+
+                    <select id="filter-status" onchange="renderDashboardBookings()" class="px-3.5 py-2 rounded-xl bg-white border border-navy-200 text-xs text-slate-800 focus:outline-none focus:border-navy-900 shadow-sm">
+                        <option value="all">جميع الحالات</option>
+                        <option value="pending">بانتظار العربون</option>
+                        <option value="confirmed">مؤكد</option>
+                        <option value="cancelled">ملغي</option>
+                    </select>
+
+                    <input type="date" id="filter-date" onchange="renderDashboardBookings()" class="px-3.5 py-2 rounded-xl bg-white border border-navy-200 text-xs text-slate-800 focus:outline-none focus:border-navy-900 shadow-sm">
+                    
+                    <button onclick="resetBookingFilters()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+                        إعادة ضبط
+                    </button>
+                </div>
+
+                <div class="w-full sm:w-64 relative">
+                    <input type="text" id="search-booking-input" oninput="renderDashboardBookings()" placeholder="بحث باسم العميل أو الجوال..."
+                           class="w-full pr-9 pl-3 py-2 rounded-xl bg-white border border-navy-200 text-xs text-slate-900 focus:outline-none focus:border-navy-900 shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-slate-400 text-xs"></i>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl overflow-hidden border border-navy-200 shadow-lg">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-navy-50 text-slate-700 text-xs border-b border-navy-100">
+                                <th class="py-4 px-4">المرجع</th>
+                                <th class="py-4 px-4">العميل والجوال</th>
+                                <th class="py-4 px-4">الجلسة والباقة</th>
+                                <th class="py-4 px-4">التاريخ والوقت</th>
+                                <th class="py-4 px-4">الأفراد / الإضافات</th>
+                                <th class="py-4 px-4">الإجمالي</th>
+                                <th class="py-4 px-4">الحالة</th>
+                                <th class="py-4 px-4 text-center">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-bookings-tbody" class="divide-y divide-navy-100 text-xs sm:text-sm">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboard-tab-users" class="hidden grid lg:grid-cols-12 gap-6 items-start">
+            <div class="lg:col-span-4 glass-card rounded-3xl p-6 border border-navy-200 shadow-sm">
+                <h3 class="font-display text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-navy-800"></i>
+                    <span>إضافة مستخدم / مشرف جديد</span>
+                </h3>
+                <form onsubmit="handleAddUser(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1.5">الاسم الكامل للموظف</label>
+                        <input type="text" id="new-user-fullname" required placeholder="مثال: سارة الغامدي"
+                               class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1.5">اسم المستخدم (للدخول)</label>
+                        <input type="text" id="new-user-username" required placeholder="مثال: manager1"
+                               class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1.5">كلمة المرور</label>
+                        <input type="password" id="new-user-password" required placeholder="••••••••"
+                               class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-600 mb-1.5">الدور / الصلاحية</label>
+                        <select id="new-user-role" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 text-sm focus:outline-none focus:border-navy-900 shadow-sm">
+                            <option value="مدير النظام">مدير النظام (كامل الصلاحيات)</option>
+                            <option value="مشرف حجوزات">مشرف حجوزات</option>
+                            <option value="استقبال">موظف استقبال</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full py-3 rounded-xl bg-navy-900 hover:bg-navy-950 text-white font-bold text-sm transition-all shadow-sm">
+                        حفظ وإضافة المستخدم
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-8 glass-card rounded-3xl overflow-hidden border border-navy-200 shadow-lg">
+                <div class="p-5 border-b border-navy-100 flex flex-wrap items-center justify-between gap-3 bg-navy-50/50">
+                    <h3 class="font-display text-lg font-bold text-slate-900">المستخدمون المسجلون في النظام</h3>
+                    <span id="users-count-badge" class="px-3 py-1.5 rounded-full bg-navy-100 text-navy-900 text-xs font-bold">1 مستخدم</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right border-collapse">
+                        <thead>
+                            <tr class="bg-navy-50 text-slate-700 text-xs border-b border-navy-100">
+                                <th class="py-3.5 px-4">الاسم</th>
+                                <th class="py-3.5 px-4">اسم المستخدم</th>
+                                <th class="py-3.5 px-4">الصلاحية</th>
+                                <th class="py-3.5 px-4">كلمة المرور</th>
+                                <th class="py-3.5 px-4 text-center">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-users-tbody" class="divide-y divide-navy-100 text-sm">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- نافذة تعديل بيانات المستخدم -->
+    <div id="edit-user-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/50 backdrop-blur-md overflow-y-auto">
+        <div class="glass-card rounded-3xl max-w-md w-full p-6 sm:p-7 border border-navy-300 shadow-2xl relative">
+            <button onclick="closeEditUserModal()" class="absolute top-5 left-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-navy-100">
+                <div class="w-11 h-11 rounded-2xl bg-navy-100 border border-navy-200 text-navy-900 flex items-center justify-center text-lg shrink-0">
+                    <i class="fa-solid fa-user-pen"></i>
+                </div>
+                <div>
+                    <h3 class="font-display text-lg sm:text-xl font-extrabold text-slate-900">تعديل بيانات المستخدم</h3>
+                    <p class="text-xs text-slate-500">تحديث اسم المستخدم، كلمة المرور، أو الصلاحية</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleUpdateUserSubmit(event)" class="space-y-4 text-sm">
+                <input type="hidden" id="edit-user-id">
+                <div>
+                    <label for="edit-user-fullname" class="block text-xs font-bold text-slate-700 mb-1.5">الاسم الكامل *</label>
+                    <input type="text" id="edit-user-fullname" required class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 focus:outline-none focus:border-navy-900 shadow-sm">
+                </div>
+                <div>
+                    <label for="edit-user-username" class="block text-xs font-bold text-slate-700 mb-1.5">اسم المستخدم *</label>
+                    <input type="text" id="edit-user-username" required class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 font-mono focus:outline-none focus:border-navy-900 shadow-sm">
+                </div>
+                <div>
+                    <label for="edit-user-password" class="block text-xs font-bold text-slate-700 mb-1.5">كلمة المرور الجديدة *</label>
+                    <input type="password" id="edit-user-password" required class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 font-mono focus:outline-none focus:border-navy-900 shadow-sm">
+                </div>
+                <div>
+                    <label for="edit-user-role" class="block text-xs font-bold text-slate-700 mb-1.5">الدور / الصلاحية *</label>
+                    <select id="edit-user-role" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-navy-200 text-slate-900 focus:outline-none focus:border-navy-900 shadow-sm">
+                        <option value="مدير النظام">مدير النظام (كامل الصلاحيات)</option>
+                        <option value="مشرف حجوزات">مشرف حجوزات</option>
+                        <option value="استقبال">موظف استقبال</option>
+                    </select>
+                </div>
+                <div id="edit-user-error" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold text-center"></div>
+                <div class="flex items-center gap-3 pt-2">
+                    <button type="submit" class="flex-1 py-3 rounded-xl bg-navy-900 hover:bg-navy-950 text-white font-extrabold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>حفظ التعديلات</span>
+                    </button>
+                    <button type="button" onclick="closeEditUserModal()" class="py-3 px-4 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold transition-all">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد حذف الحجز -->
+    <div id="delete-confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/50 backdrop-blur-md">
+        <div class="glass-card rounded-3xl max-w-md w-full p-6 sm:p-7 border border-navy-300 shadow-2xl text-center space-y-5">
+            <div class="w-16 h-16 rounded-full bg-rose-100 border border-rose-200 text-rose-600 text-2xl flex items-center justify-center mx-auto shadow-sm">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="font-display text-xl font-extrabold text-slate-900">تأكيد حذف الحجز</h3>
+                <p id="delete-confirm-text" class="text-xs sm:text-sm text-slate-600 leading-relaxed">هل أنت متأكد من رغبتك في حذف هذا الحجز نهائياً؟</p>
+            </div>
+            <div class="flex items-center gap-3 pt-2">
+                <button id="confirm-delete-action-btn" onclick="executeDeleteBooking()" class="flex-1 py-3 px-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>نعم، احذف الحجز</span>
+                </button>
+                <button onclick="closeDeleteConfirmModal()" class="flex-1 py-3 px-4 rounded-2xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-sm transition-all">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد حذف مستخدم -->
+    <div id="delete-user-confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-950/50 backdrop-blur-md">
+        <div class="glass-card rounded-3xl max-w-md w-full p-6 sm:p-7 border border-navy-300 shadow-2xl text-center space-y-5">
+            <div class="w-16 h-16 rounded-full bg-rose-100 border border-rose-200 text-rose-600 text-2xl flex items-center justify-center mx-auto shadow-sm">
+                <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="font-display text-xl font-extrabold text-slate-900">تأكيد حذف المستخدم</h3>
+                <p id="delete-user-confirm-text" class="text-xs sm:text-sm text-slate-600 leading-relaxed">هل أنت متأكد من رغبتك في حذف حساب هذا المستخدم نهائياً؟</p>
+            </div>
+            <div class="flex items-center gap-3 pt-2">
+                <button onclick="executeDeleteUser()" class="flex-1 py-3 px-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>نعم، احذف المستخدم</span>
+                </button>
+                <button onclick="closeDeleteUserConfirmModal()" class="flex-1 py-3 px-4 rounded-2xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-sm transition-all">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- تفعيل إعدادات Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZEPitEz7nIX-_7NEEghntEafGQh6Aceg",
+            authDomain: "sukoon-996bd.firebaseapp.com",
+            databaseURL: "https://sukoon-996bd-default-rtdb.firebaseio.com",
+            projectId: "sukoon-996bd",
+            storageBucket: "sukoon-996bd.firebasestorage.app",
+            messagingSenderId: "601075541682",
+            appId: "1:601075541682:web:75c974f13602d98ebdcbab"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        window.firebaseApp = app; // إتاحة التطبيق للاستخدام العام عند الحاجة
+    </script>
+
+    <!-- البرمجة والمنطق التفاعلي (JavaScript) -->
+    <script>
+        const STORAGE_KEYS = {
+            BOOKINGS: 'sukoon_beach_bookings_v1',
+            USERS: 'sukoon_beach_users_v1',
+            AUTH: 'sukoon_beach_admin_session_v1'
+        };
+
+        const SILVER_PRICES = { 1: 60, 2: 120, 3: 180, 4: 240, 5: 275, 6: 330 };
+        const GOLD_PRICES = { 1: 80, 2: 160, 3: 240, 4: 320, 5: 350, 6: 400 };
+        const CELEBRATION_PACKAGE_PRICE = 300;
+        const DEPOSIT_AMOUNT = 50;
+
+        const TIME_SLOTS = [
+            { value: 17, label: '5:00 مساءً' },
+            { value: 18, label: '6:00 مساءً' },
+            { value: 19, label: '7:00 مساءً' },
+            { value: 20, label: '8:00 مساءً' },
+            { value: 21, label: '9:00 مساءً' },
+            { value: 22, label: '10:00 مساءً' },
+            { value: 23, label: '11:00 مساءً' },
+            { value: 24, label: '12:00 منتصف الليل (ص)' },
+            { value: 25, label: '1:00 صباحاً' },
+            { value: 26, label: '2:00 صباحاً' },
+            { value: 27, label: '3:00 صباحاً' },
+            { value: 28, label: '4:00 صباحاً' },
+            { value: 29, label: '5:00 صباحاً' }
+        ];
+
+        function initializeStorageData() {
+            if (!localStorage.getItem(STORAGE_KEYS.USERS)) {
+                const defaultUsers = [{
+                    id: 'USR-1',
+                    fullName: 'المدير العام - سكون',
+                    username: 'admin',
+                    password: 'root',
+                    role: 'مدير النظام'
+                }];
+                localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(defaultUsers));
+            }
+
+            if (!localStorage.getItem(STORAGE_KEYS.BOOKINGS)) {
+                const todayStr = getFormattedDateOffset(0);
+                const sampleBookings = [
+                    {
+                        id: 'SK-1041',
+                        sessionNumber: '101',
+                        packageType: 'gold',
+                        date: todayStr,
+                        startHour: 20,
+                        duration: 3,
+                        guests: 4,
+                        celebration: true,
+                        customerName: 'عبدالرحمن الزهراني',
+                        customerPhone: '0551234567',
+                        totalPrice: 540,
+                        status: 'confirmed',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 'SK-1042',
+                        sessionNumber: '102',
+                        packageType: 'silver',
+                        date: todayStr,
+                        startHour: 22,
+                        duration: 2,
+                        guests: 2,
+                        celebration: false,
+                        customerName: 'نورة المالكي',
+                        customerPhone: '0509876543',
+                        totalPrice: 120,
+                        status: 'pending',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                localStorage.setItem(STORAGE_KEYS.BOOKINGS, JSON.stringify(sampleBookings));
+            }
+        }
+
+        function getBookings() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.BOOKINGS)) || []; } catch (e) { return []; }
+        }
+        function saveBookings(bookings) { localStorage.setItem(STORAGE_KEYS.BOOKINGS, JSON.stringify(bookings)); }
+        function getUsers() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS)) || []; } catch (e) { return []; }
+        }
+        function saveUsers(users) { localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users)); }
+
+        function getFormattedDateOffset(daysOffset) {
+            const date = new Date();
+            date.setDate(date.getDate() + daysOffset);
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        }
+
+        function formatExtendedHour(extHour) {
+            const normalized = extHour % 24;
+            if (normalized === 0) return '12:00 ص';
+            if (normalized === 12) return '12:00 م';
+            if (normalized > 12) return `${normalized - 12}:00 م`;
+            return `${normalized}:00 ص`;
+        }
+
+        function checkTimeConflict(sessionNumber, date, startHour, duration) {
+            const endHour = startHour + duration;
+            const bookings = getBookings().filter(b => b.sessionNumber === sessionNumber && b.date === date && b.status !== 'cancelled');
+            for (const booking of bookings) {
+                if (startHour < (booking.startHour + booking.duration) && endHour > booking.startHour) {
+                    return booking;
+                }
+            }
+            return null;
+        }
+
+        function setupBookingFormDefaults() {
+            const today = getFormattedDateOffset(0);
+            const maxTwoWeeks = getFormattedDateOffset(14);
+            document.getElementById('booking-date').min = today;
+            document.getElementById('booking-date').max = maxTwoWeeks;
+            document.getElementById('booking-date').value = today;
+
+            const startSelect = document.getElementById('start-time');
+            startSelect.innerHTML = '';
+
+            TIME_SLOTS.forEach((slot, index) => {
+                const opt = document.createElement('option');
+                opt.value = slot.value;
+                opt.textContent = slot.label;
+                if (index === 0) opt.selected = true;
+                startSelect.appendChild(opt);
+            });
+
+            updateBookingCalculations();
+        }
+
+        function selectPackageAndScroll(pkgType) {
+            const radio = document.querySelector(`input[name="packageType"][value="${pkgType}"]`);
+            if (radio) {
+                radio.checked = true;
+                handlePackageChange();
+            }
+            document.getElementById('booking-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handlePackageChange() {
+            const pkgType = document.querySelector('input[name="packageType"]:checked').value;
+            const guestsInput = document.getElementById('guests-count');
+            const guestsHint = document.getElementById('guests-hint');
+            const decBtn = document.getElementById('decrease-guests-btn');
+            const incBtn = document.getElementById('increase-guests-btn');
+
+            if (pkgType === 'silver') {
+                guestsInput.value = 2;
+                guestsInput.readOnly = true;
+                if (decBtn) decBtn.disabled = true;
+                if (incBtn) incBtn.disabled = true;
+                guestsHint.textContent = '* الباقة الفضية مخصصة لشخصين (2) فقط.';
+            } else {
+                guestsInput.readOnly = true;
+                if (decBtn) decBtn.disabled = false;
+                if (incBtn) incBtn.disabled = false;
+                if (parseInt(guestsInput.value) < 1) guestsInput.value = 1;
+                if (parseInt(guestsInput.value) > 10) guestsInput.value = 10;
+                guestsHint.textContent = '* الباقة الذهبية تتيح اختيار عدد الأفراد (من 1 إلى 10 أشخاص).';
+            }
+            updateBookingCalculations();
+        }
+
+        function adjustGuests(change) {
+            const pkgType = document.querySelector('input[name="packageType"]:checked').value;
+            if (pkgType === 'silver') return;
+            const guestsInput = document.getElementById('guests-count');
+            let current = parseInt(guestsInput.value) || 1;
+            current += change;
+            if (current < 1) current = 1;
+            if (current > 10) current = 10;
+            guestsInput.value = current;
+            updateBookingCalculations();
+        }
+
+        function updateBookingCalculations() {
+            const sessionNumber = document.querySelector('input[name="sessionNumber"]:checked').value;
+            const pkgType = document.querySelector('input[name="packageType"]:checked').value;
+            const date = document.getElementById('booking-date').value;
+            const startHour = parseInt(document.getElementById('start-time').value);
+            const duration = parseInt(document.getElementById('duration-hours').value);
+            const guests = parseInt(document.getElementById('guests-count').value) || 2;
+            const hasCelebration = document.getElementById('celebration-addon').checked;
+            const endHour = startHour + duration;
+
+            const basePrice = pkgType === 'silver' ? SILVER_PRICES[duration] : GOLD_PRICES[duration];
+            const addonPrice = hasCelebration ? CELEBRATION_PACKAGE_PRICE : 0;
+            const totalPrice = basePrice + addonPrice;
+
+            document.getElementById('sum-session').textContent = `جلسة ${sessionNumber}`;
+            document.getElementById('sum-package').textContent = pkgType === 'silver' ? 'الباقة الفضية' : 'الباقة الذهبية VIP';
+            document.getElementById('sum-date').textContent = date || '-';
+            document.getElementById('sum-time-range').textContent = `${formatExtendedHour(startHour)} — ${formatExtendedHour(endHour)} (${duration} ساعات)`;
+            document.getElementById('sum-guests').textContent = `${guests} أشخاص`;
+            document.getElementById('sum-base-price').textContent = `${basePrice} ريال`;
+            document.getElementById('sum-addon-price').textContent = hasCelebration ? `مضاف (+${addonPrice} ريال)` : 'غير مضاف (0 ريال)';
+            document.getElementById('sum-total-price').textContent = `${totalPrice} ريال`;
+
+            const alertBox = document.getElementById('availability-alert-box');
+            const submitBtn = document.getElementById('submit-booking-btn');
+            const statusBadge = document.getElementById('summary-status-badge');
+
+            if (endHour > 30) {
+                alertBox.className = 'rounded-2xl p-4 border bg-rose-50 border-rose-200 text-rose-800 text-xs sm:text-sm space-y-1';
+                alertBox.innerHTML = `<div class="font-bold flex items-center gap-2"><i class="fa-solid fa-clock"></i><span>تنبيه: وقت انتهاء الحجز يتجاوز الساعة 6:00 صباحاً!</span></div><p>يرجى تقليل عدد الساعات أو اختيار وقت بداية أبكر.</p>`;
+                alertBox.classList.remove('hidden');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                statusBadge.textContent = 'وقت غير صالح';
+            } else {
+                const conflict = checkTimeConflict(sessionNumber, date, startHour, duration);
+                if (conflict) {
+                    const otherSession = sessionNumber === '101' ? '102' : '101';
+                    const otherSessionFree = !checkTimeConflict(otherSession, date, startHour, duration);
+                    let altHtml = '';
+                    if (otherSessionFree) {
+                        altHtml += `<div class="mt-2 p-2 rounded-xl bg-navy-100 border border-navy-200 text-navy-950 text-xs font-semibold"><i class="fa-solid fa-lightbulb ml-1"></i><strong>خبر سار:</strong> <u>جلسة ${otherSession}</u> متاحة في نفس هذا الوقت تماماً!</div>`;
+                    }
+                    alertBox.className = 'rounded-2xl p-4 border bg-rose-50 border-rose-200 text-rose-800 text-xs sm:text-sm';
+                    alertBox.innerHTML = `<div class="font-bold flex items-center gap-2 mb-1"><i class="fa-solid fa-triangle-exclamation"></i><span>عذراً، الوقت الذي اخترته لـ (جلسة ${sessionNumber}) غير متاح!</span></div><p class="text-xs text-rose-700">محجوزة مسبقاً من <strong>${formatExtendedHour(conflict.startHour)}</strong> إلى <strong>${formatExtendedHour(conflict.startHour + conflict.duration)}</strong>.</p>${altHtml}`;
+                    alertBox.classList.remove('hidden');
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    statusBadge.textContent = 'غير متاح (محجوز)';
+                } else {
+                    alertBox.className = 'rounded-2xl p-3.5 border bg-navy-50 border-navy-200 text-navy-950 text-xs flex items-center justify-between font-semibold';
+                    alertBox.innerHTML = `<div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-navy-900 text-base"></i><span><strong>جلسة ${sessionNumber}</strong> متاحة من <strong>${formatExtendedHour(startHour)}</strong> إلى <strong>${formatExtendedHour(endHour)}</strong></span></div><span class="text-navy-950 font-bold">جاهز للحجز</span>`;
+                    alertBox.classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    statusBadge.textContent = 'متاح للحجز';
+                }
+            }
+            renderDailySchedulePreview(date);
+        }
+
+        function renderDailySchedulePreview(date) {
+            const container = document.getElementById('daily-schedule-preview');
+            const bookings = getBookings().filter(b => b.date === date && b.status !== 'cancelled');
+            if (bookings.length === 0) {
+                container.innerHTML = `<div class="p-2.5 rounded-xl bg-navy-50 border border-navy-100 text-navy-900 text-center font-semibold">جميع الأوقات متاحة في جلسة 101 وجلسة 102 لهذا اليوم ✨</div>`;
+                return;
+            }
+            container.innerHTML = bookings.map(b => `<div class="flex items-center justify-between p-2 rounded-xl bg-white border border-navy-100 font-semibold shadow-xs"><span class="text-navy-950">جلسة ${b.sessionNumber}</span><span class="text-slate-600">محجوزة: ${formatExtendedHour(b.startHour)} - ${formatExtendedHour(b.startHour + b.duration)}</span></div>`).join('');
+        }
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            const sessionNumber = document.querySelector('input[name="sessionNumber"]:checked').value;
+            const pkgType = document.querySelector('input[name="packageType"]:checked').value;
+            const date = document.getElementById('booking-date').value;
+            const startHour = parseInt(document.getElementById('start-time').value);
+            const duration = parseInt(document.getElementById('duration-hours').value);
+            const guests = pkgType === 'silver' ? 2 : (parseInt(document.getElementById('guests-count').value) || 2);
+            const hasCelebration = document.getElementById('celebration-addon').checked;
+            const customerName = document.getElementById('customer-name').value.trim();
+            const customerPhone = document.getElementById('customer-phone').value.trim();
+
+            if (checkTimeConflict(sessionNumber, date, startHour, duration)) {
+                showToast('عذراً، هذا الوقت أصبح محجوزاً للتو.', 'error');
+                updateBookingCalculations();
+                return;
+            }
+
+            const basePrice = pkgType === 'silver' ? SILVER_PRICES[duration] : GOLD_PRICES[duration];
+            const totalPrice = basePrice + (hasCelebration ? CELEBRATION_PACKAGE_PRICE : 0);
+
+            const newBooking = {
+                id: 'SK-' + Math.floor(1000 + Math.random() * 9000),
+                sessionNumber,
+                packageType: pkgType,
+                date,
+                startHour,
+                duration,
+                guests,
+                celebration: hasCelebration,
+                customerName,
+                customerPhone,
+                totalPrice,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            const bookings = getBookings();
+            bookings.unshift(newBooking);
+            saveBookings(bookings);
+            openConfirmationModal(newBooking);
+            
+            document.getElementById('booking-form').reset();
+            setupBookingFormDefaults();
+            updateBookingCalculations();
+            showToast('تم تسجيل حجزك بنجاح! يرجى تحويل العربون لتأكيده.', 'success');
+        }
+
+        function openConfirmationModal(booking) {
+            const pkgLabel = booking.packageType === 'silver' ? 'الباقة الفضية' : 'الباقة الذهبية VIP';
+            document.getElementById('conf-booking-id').textContent = `#${booking.id}`;
+            document.getElementById('conf-name').textContent = `${booking.customerName} (${booking.customerPhone})`;
+            document.getElementById('conf-session-pkg').textContent = `جلسة ${booking.sessionNumber} - ${pkgLabel}${booking.celebration ? ' + باكيج الاحتفالات' : ''}`;
+            document.getElementById('conf-datetime').textContent = `${booking.date} | من ${formatExtendedHour(booking.startHour)} إلى ${formatExtendedHour(booking.startHour + booking.duration)}`;
+            document.getElementById('conf-total').textContent = `${booking.totalPrice} ريال`;
+
+            const waMessage = encodeURIComponent(`السلام عليكم جلسات سكون الشاطئية 🌊\nأرغب بتأكيد حجزي وإرسال إشعار تحويل العربون (50 ريال):\n• رقم الحجز: ${booking.id}\n• الاسم: ${booking.customerName}\n• الجلسة: جلسة ${booking.sessionNumber} (${pkgLabel})\n• التاريخ: ${booking.date}\n• الوقت: من ${formatExtendedHour(booking.startHour)} إلى ${formatExtendedHour(booking.startHour + booking.duration)}\n• الإجمالي: ${booking.totalPrice} ريال`);
+            
+            const waBtn = document.getElementById('whatsapp-receipt-btn');
+            waBtn.href = `https://wa.me/966500630782?text=${waMessage}`;
+
+            const modal = document.getElementById('confirmation-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeConfirmationModal() {
+            const modal = document.getElementById('confirmation-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function switchView(viewName) {
+            const clientView = document.getElementById('client-view');
+            const loginView = document.getElementById('admin-login-view');
+            const dashboardView = document.getElementById('admin-dashboard-view');
+            const navLinks = document.getElementById('client-nav-links');
+            const backBtn = document.getElementById('btn-back-to-site');
+            const adminBtnText = document.getElementById('admin-btn-text');
+
+            clientView.classList.add('hidden');
+            loginView.classList.add('hidden');
+            dashboardView.classList.add('hidden');
+
+            const currentAdmin = sessionStorage.getItem(STORAGE_KEYS.AUTH);
+
+            if (viewName === 'client') {
+                clientView.classList.remove('hidden');
+                navLinks.classList.remove('hidden');
+                backBtn.classList.add('hidden');
+                adminBtnText.textContent = currentAdmin ? 'العودة للداش بورد' : 'لوحة الإدارة';
+                updateBookingCalculations();
+            } else if (viewName === 'login') {
+                loginView.classList.remove('hidden');
+                navLinks.classList.add('hidden');
+                backBtn.classList.remove('hidden');
+                document.getElementById('login-error-msg').classList.add('hidden');
+            } else if (viewName === 'dashboard') {
+                if (!currentAdmin) { switchView('login'); return; }
+                dashboardView.classList.remove('hidden');
+                navLinks.classList.add('hidden');
+                backBtn.classList.remove('hidden');
+                adminBtnText.textContent = 'لوحة الإدارة';
+                document.getElementById('logged-admin-name').textContent = currentAdmin;
+                refreshDashboardData();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleAdminButtonClick() {
+            if (sessionStorage.getItem(STORAGE_KEYS.AUTH)) { switchView('dashboard'); } else { switchView('login'); }
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const usernameInput = document.getElementById('login-username').value.trim();
+            const passwordInput = document.getElementById('login-password').value;
+            const errorBox = document.getElementById('login-error-msg');
+            const matchedUser = getUsers().find(u => u.username === usernameInput && u.password === passwordInput);
+
+            if (matchedUser) {
+                sessionStorage.setItem(STORAGE_KEYS.AUTH, matchedUser.fullName || matchedUser.username);
+                errorBox.classList.add('hidden');
+                document.getElementById('login-password').value = '';
+                showToast(`مرحباً بك ${matchedUser.fullName}`, 'success');
+                switchView('dashboard');
+            } else {
+                errorBox.classList.remove('hidden');
+                showToast('بيانات الدخول غير صحيحة', 'error');
+            }
+        }
+
+        function handleAdminLogout() {
+            sessionStorage.removeItem(STORAGE_KEYS.AUTH);
+            showToast('تم تسجيل الخروج بنجاح', 'info');
+            switchView('client');
+        }
+
+        function switchDashboardTab(tab) {
+            const bookingsTab = document.getElementById('dashboard-tab-bookings');
+            const usersTab = document.getElementById('dashboard-tab-users');
+            const btnBookings = document.getElementById('tab-btn-bookings');
+            const btnUsers = document.getElementById('tab-btn-users');
+
+            if (tab === 'bookings') {
+                bookingsTab.classList.remove('hidden');
+                usersTab.classList.add('hidden');
+                btnBookings.className = 'px-5 py-2.5 rounded-xl bg-navy-900 text-white font-black text-sm transition-all flex items-center gap-2 shadow-sm';
+                btnUsers.className = 'px-5 py-2.5 rounded-xl bg-white hover:bg-navy-50 text-slate-700 border border-navy-100 font-bold text-sm transition-all flex items-center gap-2';
+                renderDashboardBookings();
+            } else {
+                bookingsTab.classList.add('hidden');
+                usersTab.classList.remove('hidden');
+                btnUsers.className = 'px-5 py-2.5 rounded-xl bg-navy-900 text-white font-black text-sm transition-all flex items-center gap-2 shadow-sm';
+                btnBookings.className = 'px-5 py-2.5 rounded-xl bg-white hover:bg-navy-50 text-slate-700 border border-navy-100 font-bold text-sm transition-all flex items-center gap-2';
+                renderDashboardUsers();
+            }
+        }
+
+        function refreshDashboardData() {
+            updateDashboardStats();
+            renderDashboardBookings();
+            renderDashboardUsers();
+        }
+
+        function updateDashboardStats() {
+            const bookings = getBookings();
+            const confirmed = bookings.filter(b => b.status === 'confirmed');
+            const pending = bookings.filter(b => b.status === 'pending');
+            const todayStr = getFormattedDateOffset(0);
+            const future = bookings.filter(b => b.date > todayStr && b.status !== 'cancelled');
+            const revenue = bookings.filter(b => b.status !== 'cancelled').reduce((sum, b) => sum + Number(b.totalPrice || 0), 0);
+
+            document.getElementById('stat-total-bookings').textContent = bookings.length;
+            document.getElementById('stat-confirmed-bookings').textContent = confirmed.length;
+            document.getElementById('stat-pending-bookings').textContent = pending.length;
+            document.getElementById('stat-future-bookings').textContent = future.length;
+            document.getElementById('stat-total-revenue').textContent = `${revenue.toLocaleString()} ر.س`;
+        }
+
+        function resetBookingFilters() {
+            document.getElementById('filter-session').value = 'all';
+            document.getElementById('filter-package').value = 'all';
+            document.getElementById('filter-status').value = 'all';
+            document.getElementById('filter-date').value = '';
+            document.getElementById('search-booking-input').value = '';
+            renderDashboardBookings();
+        }
+
+        function renderDashboardBookings() {
+            const tbody = document.getElementById('admin-bookings-tbody');
+            const sessionFilter = document.getElementById('filter-session').value;
+            const packageFilter = document.getElementById('filter-package').value;
+            const statusFilter = document.getElementById('filter-status').value;
+            const dateFilter = document.getElementById('filter-date').value;
+            const searchQuery = document.getElementById('search-booking-input').value.trim().toLowerCase();
+
+            let bookings = getBookings();
+            if (sessionFilter !== 'all') bookings = bookings.filter(b => b.sessionNumber === sessionFilter);
+            if (packageFilter !== 'all') bookings = bookings.filter(b => b.packageType === packageFilter);
+            if (statusFilter !== 'all') bookings = bookings.filter(b => b.status === statusFilter);
+            if (dateFilter) bookings = bookings.filter(b => b.date === dateFilter);
+            if (searchQuery) bookings = bookings.filter(b => b.customerName.toLowerCase().includes(searchQuery) || b.customerPhone.includes(searchQuery) || b.id.toLowerCase().includes(searchQuery));
+
+            if (bookings.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="py-10 text-center text-slate-400 font-medium">لا توجد حجوزات مطابقة لخيارات البحث الحالية.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = bookings.map(b => {
+                const pkgBadge = b.packageType === 'silver' ? '<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-bold">الباقة الفضية</span>' : '<span class="px-2 py-0.5 rounded bg-navy-900 text-white text-[11px] font-bold">الذهبية VIP</span>';
+                let statusBadge = '';
+                if (b.status === 'confirmed') statusBadge = '<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold">مؤكد</span>';
+                else if (b.status === 'pending') statusBadge = '<span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-xs font-bold">بانتظار العربون</span>';
+                else statusBadge = '<span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-300 text-xs font-bold">ملغي</span>';
+
+                return `
+                    <tr class="hover:bg-navy-50/45 transition-colors">
+                        <td class="py-3.5 px-4 font-mono text-xs text-navy-900 font-bold">#${b.id}</td>
+                        <td class="py-3.5 px-4"><div class="font-bold text-slate-900">${b.customerName}</div><div class="text-xs text-slate-500 font-mono" dir="ltr">${b.customerPhone}</div></td>
+                        <td class="py-3.5 px-4"><div class="font-bold text-slate-800 mb-1">جلسة ${b.sessionNumber}</div>${pkgBadge}</td>
+                        <td class="py-3.5 px-4"><div class="text-slate-900 font-semibold">${b.date}</div><div class="text-xs text-navy-800">${formatExtendedHour(b.startHour)} - ${formatExtendedHour(b.startHour + b.duration)}</div></td>
+                        <td class="py-3.5 px-4"><div class="text-slate-700">${b.guests} أفراد</div>${b.celebration ? '<span class="text-[11px] text-navy-900 font-bold"><i class="fa-solid fa-cake-candles ml-1"></i>باكيج احتفالات</span>' : '<span class="text-[11px] text-slate-400">بدون إضافات</span>'}</td>
+                        <td class="py-3.5 px-4 font-black text-slate-900">${b.totalPrice} ر.س</td>
+                        <td class="py-3.5 px-4">${statusBadge}</td>
+                        <td class="py-3.5 px-4">
+                            <div class="flex items-center justify-center gap-1.5">
+                                ${b.status !== 'confirmed' ? `<button onclick="updateBookingStatus('${b.id}', 'confirmed')" title="تأكيد الحجز" class="p-2 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-800 transition-colors"><i class="fa-solid fa-check"></i></button>` : ''}
+                                ${b.status !== 'cancelled' ? `<button onclick="updateBookingStatus('${b.id}', 'cancelled')" title="إلغاء الحجز" class="p-2 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 transition-colors"><i class="fa-solid fa-ban"></i></button>` : ''}
+                                <button onclick="deleteBookingRecord('${b.id}')" title="حذف نهائي" class="p-2 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 transition-colors"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateBookingStatus(bookingId, newStatus) {
+            const bookings = getBookings();
+            const idx = bookings.findIndex(b => b.id === bookingId);
+            if (idx !== -1) {
+                const customerName = bookings[idx].customerName;
+                bookings[idx].status = newStatus;
+                saveBookings(bookings);
+                refreshDashboardData();
+                showToast(newStatus === 'confirmed' ? `تم تأكيد حجز العميل: ${customerName}` : `تم إلغاء حجز العميل: ${customerName}`, newStatus === 'confirmed' ? 'success' : 'info');
+            }
+        }
+
+        let pendingDeleteBookingId = null;
+        function deleteBookingRecord(bookingId) {
+            const booking = getBookings().find(b => b.id === bookingId);
+            if (!booking) return;
+            pendingDeleteBookingId = bookingId;
+            document.getElementById('delete-confirm-text').innerHTML = `هل أنت متأكد من رغبتك في حذف حجز العميل <strong class="text-slate-900">${booking.customerName}</strong> نهائياً؟`;
+            const modal = document.getElementById('delete-confirm-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function executeDeleteBooking() {
+            if (!pendingDeleteBookingId) return;
+            saveBookings(getBookings().filter(b => b.id !== pendingDeleteBookingId));
+            closeDeleteConfirmModal();
+            refreshDashboardData();
+            showToast('تم حذف سجل الحجز من النظام نهائياً', 'info');
+        }
+
+        function closeDeleteConfirmModal() {
+            pendingDeleteBookingId = null;
+            const modal = document.getElementById('delete-confirm-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleAddUser(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('new-user-fullname').value.trim();
+            const username = document.getElementById('new-user-username').value.trim();
+            const password = document.getElementById('new-user-password').value;
+            const role = document.getElementById('new-user-role').value;
+
+            if (!fullName || !username || !password) {
+                showToast('جميع الحقول مطلوبة لإضافة المستخدم.', 'error');
+                return;
+            }
+
+            let users = getUsers();
+            if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+                showToast('اسم المستخدم موجود مسبقاً!', 'error');
+                return;
+            }
+
+            users.push({ id: 'USR-' + Date.now(), fullName, username, password, role });
+            saveUsers(users);
+
+            document.getElementById('new-user-fullname').value = '';
+            document.getElementById('new-user-username').value = '';
+            document.getElementById('new-user-password').value = '';
+
+            renderDashboardUsers();
+            showToast(`تمت إضافة المستخدم (${fullName}) بنجاح!`, 'success');
+        }
+
+        function renderDashboardUsers() {
+            const tbody = document.getElementById('admin-users-tbody');
+            const users = getUsers();
+            document.getElementById('users-count-badge').textContent = `${users.length} مستخدم`;
+
+            tbody.innerHTML = users.map(u => {
+                const isMainAdmin = u.id === 'USR-1' || u.isPrimaryAdmin;
+                return `
+                <tr class="hover:bg-navy-50/45 transition-colors ${isMainAdmin ? 'bg-navy-50/30' : ''}">
+                    <td class="py-3.5 px-4"><div class="font-bold text-slate-900 flex items-center gap-2"><span>${u.fullName}</span>${isMainAdmin ? '<span class="px-2 py-0.5 rounded-full bg-navy-900 text-white text-[10px] font-black">المسؤول الرئيسي</span>' : ''}</div></td>
+                    <td class="py-3.5 px-4 font-mono text-navy-900">${u.username}</td>
+                    <td class="py-3.5 px-4"><span class="px-2.5 py-1 rounded-lg bg-navy-100 text-navy-950 text-xs font-bold">${u.role}</span></td>
+                    <td class="py-3.5 px-4 font-mono text-xs text-slate-400">••••••••</td>
+                    <td class="py-3.5 px-4 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="openEditUserModal('${u.id}')" class="px-3 py-1.5 rounded-lg bg-navy-100 hover:bg-navy-200 text-navy-900 text-xs font-bold transition-colors inline-flex items-center gap-1.5"><i class="fa-solid fa-pen-to-square"></i> تعديل</button>
+                            ${!isMainAdmin ? `<button onclick="confirmDeleteUserRecord('${u.id}')" class="px-3 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-xs font-bold transition-colors"><i class="fa-solid fa-trash ml-1"></i> حذف</button>` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+        }
+
+        function openEditUserModal(userId) {
+            const users = getUsers();
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('edit-user-id').value = user.id;
+            document.getElementById('edit-user-fullname').value = user.fullName || '';
+            document.getElementById('edit-user-username').value = user.username || '';
+            document.getElementById('edit-user-password').value = user.password || '';
+            document.getElementById('edit-user-role').value = user.role || 'مشرف حجوزات';
+            document.getElementById('edit-user-error').classList.add('hidden');
+
+            const modal = document.getElementById('edit-user-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeEditUserModal() {
+            document.getElementById('edit-user-modal').classList.add('hidden');
+            document.getElementById('edit-user-modal').classList.remove('flex');
+        }
+
+        function handleUpdateUserSubmit(event) {
+            event.preventDefault();
+            const userId = document.getElementById('edit-user-id').value;
+            const fullName = document.getElementById('edit-user-fullname').value.trim();
+            const username = document.getElementById('edit-user-username').value.trim();
+            const password = document.getElementById('edit-user-password').value;
+            const role = document.getElementById('edit-user-role').value;
+            const errorBox = document.getElementById('edit-user-error');
+
+            let users = getUsers();
+            if (users.some(u => u.username.toLowerCase() === username.toLowerCase() && u.id !== userId)) {
+                errorBox.textContent = 'اسم المستخدم مستخدم مسبقاً!';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const idx = users.findIndex(u => u.id === userId);
+            if (idx !== -1) {
+                users[idx] = { ...users[idx], fullName, username, password, role };
+                saveUsers(users);
+                closeEditUserModal();
+                renderDashboardUsers();
+                showToast('تم تحديث بيانات المستخدم بنجاح!', 'success');
+            }
+        }
+
+        let pendingDeleteUserId = null;
+        function confirmDeleteUserRecord(userId) {
+            const users = getUsers();
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            pendingDeleteUserId = userId;
+            document.getElementById('delete-user-confirm-text').innerHTML = `هل أنت متأكد من رغبتك في حذف حساب المستخدم <strong class="text-slate-900">${user.fullName}</strong> نهائياً؟`;
+            const modal = document.getElementById('delete-user-confirm-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function executeDeleteUser() {
+            if (!pendingDeleteUserId) return;
+            saveUsers(getUsers().filter(u => u.id !== pendingDeleteUserId));
+            closeDeleteUserConfirmModal();
+            renderDashboardUsers();
+            showToast('تم حذف حساب المستخدم نهائياً', 'info');
+        }
+
+        function closeDeleteUserConfirmModal() {
+            pendingDeleteUserId = null;
+            document.getElementById('delete-user-confirm-modal').classList.add('hidden');
+            document.getElementById('delete-user-confirm-modal').classList.remove('flex');
+        }
+
+        function copyTextToClipboard(text, label) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`تم نسخ ${label} بنجاح`, 'success');
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            let colors = 'bg-white border-navy-200 text-slate-800';
+            let icon = '<i class="fa-solid fa-circle-info text-navy-800"></i>';
+
+            if (type === 'success') {
+                colors = 'bg-white border-emerald-300 text-emerald-900';
+                icon = '<i class="fa-solid fa-circle-check text-emerald-600"></i>';
+            } else if (type === 'error') {
+                colors = 'bg-white border-rose-300 text-rose-900';
+                icon = '<i class="fa-solid fa-triangle-exclamation text-rose-600"></i>';
+            }
+
+            toast.className = `pointer-events-auto glass-card border ${colors} px-4 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-xs sm:text-sm font-bold transform transition-all duration-300 translate-y-2 opacity-0`;
+            toast.innerHTML = `${icon}<span>${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.remove('translate-y-2', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeStorageData();
+            setupBookingFormDefaults();
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            if (sessionStorage.getItem(STORAGE_KEYS.AUTH)) {
+                document.getElementById('admin-btn-text').textContent = 'العودة للداش بورد';
+            }
+        });
+    </script>
+</body>
+</html>
